@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router';
+import {LoginService} from '../services/login.service';
 
 @Component({
   selector: 'app-login',
@@ -7,13 +8,22 @@ import {Router} from '@angular/router';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
+user:string;
+password:string;
+error_user:boolean;
 
-  constructor(private router:Router) { }
+constructor(private router:Router,private login:LoginService) { }
 
   loginUser(event){
     event.preventDefault();
-    console.log("ingreso");
-    this.router.navigate(['dash']);
+    //if(!this.user){this.error_user=true; return false} else{this.error_user=false;}
+    console.log(this.user);
+    if(this.user){
+      this.login.loginUser(this.user,this.password).subscribe(data=>{
+        console.log(data);
+      })
+    }
+//this.router.navigate(['dash']);
   }
 
   ngOnInit() {
