@@ -14,10 +14,10 @@ error_user:boolean;
 
 constructor(private router:Router,private login:LoginService) { }
 
-  loginUser(event){
+  loginUser(formData){
     event.preventDefault();
     //if(!this.user){this.error_user=true; return false} else{this.error_user=false;}
-    console.log(this.user);
+    console.log(formData.value.user);
     if(this.user){
       this.login.loginUser(this.user,this.password).subscribe(data=>{
         console.log(data);
