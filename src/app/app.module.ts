@@ -13,8 +13,10 @@ import { LayoutModule } from 'angular-admin-lte';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 
+
 import { LoadingPageModule, MaterialBarModule } from 'angular-loading-page';
 import { BoxModule, BoxInfoModule as MkBoxInfoModule } from 'angular-admin-lte';
+import { LoginComponent } from './login/login.component';
 
 
 @NgModule({
@@ -29,7 +31,8 @@ import { BoxModule, BoxInfoModule as MkBoxInfoModule } from 'angular-admin-lte';
   ],
   declarations: [
     AppComponent,
-    HomeComponent
+    HomeComponent,
+    LoginComponent
   ],
   bootstrap: [AppComponent]
 })

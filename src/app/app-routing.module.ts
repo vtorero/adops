@@ -2,10 +2,11 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { HomeComponent } from './home/home.component';
+import {LoginComponent} from  './+login/login.component';
 
 const routes: Routes = [
   {
-  path: '',
+  path: 'dash',
   data: {
       title: 'Inicio'
   },
@@ -124,7 +125,7 @@ const routes: Routes = [
       }
     ]
   }, {
-    path: 'login',
+    path: '',
     loadChildren: './+login/login.module#LoginModule',
     data: {
       customLayout: true
