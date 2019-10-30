@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import {HttpClientModule} from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
 
 
 import { adminLteConf } from './admin-lte.conf';
@@ -27,7 +28,8 @@ import { LoginComponent } from './login/login.component';
     LayoutModule.forRoot(adminLteConf),
     LoadingPageModule, MaterialBarModule,HttpClientModule,
     BoxModule,
-    MkBoxInfoModule
+    MkBoxInfoModule,
+    FormsModule
   ],
   declarations: [
     AppComponent,

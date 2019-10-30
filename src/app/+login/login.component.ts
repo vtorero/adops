@@ -1,6 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, NgModule } from '@angular/core';
 import {Router} from '@angular/router';
 import {LoginService} from '../services/login.service';
+import {Usuario} from '../modelos/usuario';
+import { FormsModule,ReactiveFormsModule} from '@angular/forms';
+import { BrowserModule } from '@angular/platform-browser';
+
+@NgModule({
+  imports:      [BrowserModule,FormsModule,ReactiveFormsModule],
+})
 
 @Component({
   selector: 'app-login',
@@ -8,18 +15,18 @@ import {LoginService} from '../services/login.service';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-user:string;
-password:string;
-error_user:boolean;
+public usuario :Usuario;
 
-constructor(private router:Router,private login:LoginService) { }
+constructor(private router:Router,private login:LoginService) {
+  this.usuario= new Usuario("","");
+ }
 
-  loginUser(formData){
+ loginUser(formData){
     event.preventDefault();
     //if(!this.user){this.error_user=true; return false} else{this.error_user=false;}
-    console.log(formData.value.user);
-    if(this.user){
-      this.login.loginUser(this.user,this.password).subscribe(data=>{
+    console.log(this.usuario);
+    if(this.usuario.usuario){
+      this.login.loginUser(this.usuario.usuario,this.usuario.password).subscribe(data=>{
         console.log(data);
       })
     }

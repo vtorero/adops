@@ -7,13 +7,13 @@
     <div class="login-box-body">
       <p class="login-box-msg">Ingresar para iniciar sesión</p>
 
-      <form #formData='ngForm' (ngSubmit)="loginUser(formData)">
+      <form #formData="ngForm" (ngSubmit)="loginUser($formData)">
         <div class="form-group has-feedback">
-          <input type="text" (ngModel)="user" name="user" class="form-control" placeholder="Email">
+          <input type="text" name="usuario" #usuario.usuario="ngModel" [(ngModel)]="usuario.usuario"  class="form-control" placeholder="Email">
           <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
         </div>
         <div class="form-group has-feedback">
-          <input type="password" class="form-control" placeholder="Password">
+          <input type="password" name="password" #usuario.password="ngModel" [(ngModel)]="usuario.password"  class="form-control" placeholder="Password">
           <span class="glyphicon glyphicon-lock form-control-feedback"></span>
         </div>
         <div class="row"> 
@@ -38,7 +38,7 @@
       </div>
       <!-- /.social-auth-links -->
 
-      <a href="#">Olvide mi contraseña</a><br>
+      <a href="">Olvide mi contraseña</a><br>
       <a routerLink="/register" class="text-center">Registrarme</a>
 
     </div>
