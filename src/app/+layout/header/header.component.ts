@@ -7,10 +7,18 @@ import * as Prism from 'prismjs';
   templateUrl: './header.component.html'
 })
 export class HeaderComponent implements AfterViewInit {
+  public nombre:string;
+  public imagen:string
   /**
    * @method ngAfterViewInit
    */
   ngAfterViewInit() {
     Prism.highlightAll();
+  }
+
+  ngOnInit() {
+    let cimagen = localStorage.getItem("currentAvatar")
+    this.imagen=cimagen;
+
   }
 }

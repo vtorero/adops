@@ -2,6 +2,8 @@ import { Component, OnInit, AfterViewInit} from '@angular/core';
 import { Chart } from 'chart.js';  
 import {ApiService} from '../api.service';
 import * as Prism from 'prismjs';
+import {LoginService} from '../services/login.service';
+import {Router} from '@angular/router';
 
 import {Datos} from '../modelos/datos';
 
@@ -21,9 +23,14 @@ barchar =[];
 labels=[];
 values=[];
 
-  constructor(private api:ApiService){}
+  constructor(private api:ApiService,private _login:LoginService,private router:Router){}
 
   ngOnInit() {
+
+    if(this._login.getCurrentUser==false){
+      this.router.navigate(['']);
+    }
+
     this.api.getDatos()
       .subscribe(res => {
         

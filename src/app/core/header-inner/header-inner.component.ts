@@ -5,10 +5,18 @@ import { Component } from '@angular/core';
 })
 
 export class HeaderInnerComponent {
-usuario:string="Victor Jimenez";
+usuario:string;
+public imagen:string
 
   constructor(){}
 
+
+  ngOnInit() {
+    let cimagen = localStorage.getItem("currentAvatar")
+    let nombre = localStorage.getItem("currentNombre")
+    this.imagen=cimagen;
+    this.usuario=nombre;
+  }
 
 }
 

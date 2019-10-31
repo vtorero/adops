@@ -8,7 +8,7 @@ const routes: Routes = [
   {
   path: 'dash',
   data: {
-      title: 'Inicio'
+      title: 'Resultados'
   },
   children: [
     {

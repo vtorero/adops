@@ -16,24 +16,37 @@ import { BrowserModule } from '@angular/platform-browser';
 })
 export class LoginComponent implements OnInit {
 public usuario :Usuario;
+public error_user:boolean;
+dato:any;
 
 constructor(private router:Router,private login:LoginService) {
   this.usuario= new Usuario("","");
+  this.error_user=false;
  }
 
  loginUser(formData){
     event.preventDefault();
-    //if(!this.user){this.error_user=true; return false} else{this.error_user=false;}
-    console.log(this.usuario);
+    
     if(this.usuario.usuario){
-      this.login.loginUser(this.usuario.usuario,this.usuario.password).subscribe(data=>{
-        console.log(data);
-      })
+          this.login.loginUser(this.usuario.usuario,this.usuario.password).subscribe(data=>{
+            if(data['rows']==1) {
+              console.log(data['data'][0]);
+              this.router.navigate(['dash']);
+              localStorage.setItem("currentUser",data['data'][0]['usuario']);
+              localStorage.setItem("currentNombre",data['data'][0]['nombre']);
+              localStorage.setItem("currentAvatar",data['data'][0]['imagen']);
+              localStorage.setItem("currentEmpresa",data['data'][0]['empresa']);
+            }else{
+              this.error_user = true;
+              console.log(this.error_user)
+            }
+            
+          });
     }
 //this.router.navigate(['dash']);
   }
 
   ngOnInit() {
-  }
 
+}
 }

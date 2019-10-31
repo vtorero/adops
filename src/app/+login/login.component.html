@@ -9,7 +9,8 @@
 
       <form #formData="ngForm" (ngSubmit)="loginUser($formData)">
         <div class="form-group has-feedback">
-          <input type="text" name="usuario" #usuario.usuario="ngModel" [(ngModel)]="usuario.usuario"  class="form-control" placeholder="Email">
+          <div *ngIf="error_user"> Error de acceso</div>
+          <input type="text" name="usuario" #usuario.usuario="ngModel" [(ngModel)]="usuario.usuario"  class="form-control" placeholder="Usuario">
           <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
         </div>
         <div class="form-group has-feedback">
@@ -17,13 +18,6 @@
           <span class="glyphicon glyphicon-lock form-control-feedback"></span>
         </div>
         <div class="row"> 
-          <div class="col-xs-8">
-            <div class="checkbox icheck">
-              <label>
-                <div class="icheckbox_square-blue" aria-checked="false" aria-disabled="false" style="position: relative;"><input type="checkbox" style="position: absolute; top: -20%; left: -20%; display: block; width: 140%; height: 140%; margin: 0; padding: 0; background: rgb(255, 255, 255); border: 0; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: -20%; left: -20%; display: block; width: 140%; height: 140%; margin: 0; padding: 0; background: rgb(255, 255, 255); border: 0; opacity: 0;"></ins></div> Remember Me
-              </label>
-            </div>
-          </div>
           <!-- /.col -->
           <div class="col-xs-4">
             <button type="submit" class="btn btn-primary btn-block btn-flat">Ingresar</button>
