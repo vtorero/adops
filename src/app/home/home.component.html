@@ -1,6 +1,22 @@
-
+<mk-box header="Personalizar Fechas" [isCollapsable]="false" [isRemovable]="false">
+  
+<label>
+    Inicio:
+    <input class="form-control" [owlDateTimeTrigger]="dt" [owlDateTime]="dt" [(ngModel)]="selectedMoment">
+    <owl-date-time #dt></owl-date-time>
+</label>
+<label>
+    Fin:
+    <input class="form-control"  [owlDateTimeTrigger]="dt2" [owlDateTime]="dt2" [(ngModel)]="selectedMoment2">
+    <owl-date-time #dt2></owl-date-time>
+</label>
+    <div class="box-footer">
+        <button type="submit" (click)="enviaFechas()" class="btn btn-primary">Enviar</button>
+      </div>
+  </mk-box>
 <div class="row">
-  <div class="col-md-3 col-xs-12">
+  
+    <div class="col-md-3 col-xs-12">
     <mk-box-info header="Ingreso" iconBackgroundColor="aqua" iconStyleClass="fa fa-envelope-o">
       S/.1,550
     </mk-box-info>
@@ -35,9 +51,7 @@
 </div>
 
 </div>
-<mk-box header="About Angular Admin LTE" [isCollapsable]="false" [isRemovable]="false">
-  <p>Angular Admin LTE is an implementation of the Admin LTE theme. It comes with native angular components and directive and do not need JS dependencies. It provides a layout module witch comes with components for header, sidebar right & left, footer...</p>
-</mk-box>
+
 
 <mk-box header="Download" [isCollapsable]="false" [isRemovable]="false">
   <p>Angular Admin LTE is available at npm, if you have an existing application run the following command to download it to your project.</p>

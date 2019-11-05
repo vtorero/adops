@@ -15,7 +15,7 @@ describe('AppComponent', () => {
         RouterTestingModule,
         CoreModule,
         LayoutModule.forRoot(adminLteConf),
-        LoadingPageModule, MaterialBarModule
+        LoadingPageModule
       ],
       declarations: [
         AppComponent
