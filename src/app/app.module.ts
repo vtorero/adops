@@ -22,6 +22,7 @@ import { LoginComponent } from './login/login.component';
 import { MatNativeDateModule } from '@angular/material/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
+import { PagoComponent } from './pago/pago/pago.component';
 
 
 @NgModule({
@@ -39,7 +40,8 @@ import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
   declarations: [
     AppComponent,
     HomeComponent,
-    LoginComponent
+    LoginComponent,
+    PagoComponent
   ],
   bootstrap: [AppComponent]
 })

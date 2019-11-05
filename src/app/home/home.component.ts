@@ -5,10 +5,20 @@ import * as Prism from 'prismjs';
 import {LoginService} from '../services/login.service';
 import {Router} from '@angular/router';
 import {Datos} from '../modelos/datos';
-import { OwlDateTimeModule, OwlNativeDateTimeModule, DateTimeAdapter } from 'ng-pick-datetime';
+import { OwlDateTimeModule, OwlNativeDateTimeModule, DateTimeAdapter, OWL_DATE_TIME_FORMATS } from 'ng-pick-datetime';
 import { BrowserModule } from '@angular/platform-browser';
 import "ng-pick-datetime/assets/style/picker.min.css";
-import { ThrowStmt } from '@angular/compiler';
+
+
+export const MY_MOMENT_FORMATS = {
+  parseInput: 'l LT',
+  fullPickerInput: 'l LT',
+  datePickerInput: 'l',
+  timePickerInput: 'LT',
+  monthYearLabel: 'MM YYYY',
+  dateA11yLabel: 'LL',
+  monthYearA11yLabel: 'MM YYYY',
+};
 
 
 
@@ -21,7 +31,9 @@ import { ThrowStmt } from '@angular/compiler';
 
 @NgModule({
   imports: [OwlDateTimeModule,OwlNativeDateTimeModule,BrowserModule],
+  providers:[{provide: OWL_DATE_TIME_FORMATS, useValue: MY_MOMENT_FORMATS},]
 })
+
 
 export class HomeComponent{
 public selectedMoment = new Date();
@@ -154,14 +166,16 @@ data:string= localStorage.getItem("data");
     Prism.highlightAll();
   }
 
-  enviaFechas(){
+enviaFechas(){
 console.log(this.selectedMoment);
 console.log(this.selectedMoment2);
-this.loadDatos();
+var test1 = this.selectedMoment.toDateString().split(" ",4); 
+var test2 = this.selectedMoment2.toDateString().split(" ",4); 
+this.loadDatos(test1[1]+test1[2]+test1[3],test2[1]+test2[2]+test2[3]);
 
   }
 
- loadDatos(){
+ loadDatos(inicio:string,final:string){
   var piechar = new Chart('canvas');
   piechar.destroy;
   var barchar = new Chart('canvas2');
@@ -170,7 +184,7 @@ this.labels=[];
 this.values=[];
 
 
-this.api.getDatos()
+this.api.getReportes(inicio,final)
 .subscribe(res => {
   let alldates = res['data'].map(res => res.total)
   let  alllabels = res['data'].map(res => res.dimensionad_exchange_device_category)
