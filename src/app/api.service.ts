@@ -22,11 +22,12 @@ export class ApiService {
     return this._http.get(this.url);
 }
 
-getReportes(inicio: string, final: string) {
+getReportes(inicio: string, final: string,empresa:string) {
   const url = Global.BASE_API_URL + 'api.php/reporte';
   return this._http.post(url,{
       ini: inicio,
-      fin: final
+      fin: final,
+      emp:empresa
   }, { headers: this.headers }).pipe(map(data => data));
 }
 

@@ -8,6 +8,7 @@ import {Datos} from '../modelos/datos';
 import { OwlDateTimeModule, OwlNativeDateTimeModule, DateTimeAdapter, OWL_DATE_TIME_FORMATS } from 'ng-pick-datetime';
 import { BrowserModule } from '@angular/platform-browser';
 import "ng-pick-datetime/assets/style/picker.min.css";
+import { createUrlResolverWithoutPackagePrefix } from '@angular/compiler';
 
 
 export const MY_MOMENT_FORMATS = {
@@ -45,7 +46,8 @@ barchar =[];
 labels=[];
 values=[];
 data:string= localStorage.getItem("data");
-
+  window: any;
+  
   constructor(private api:ApiService,private _login:LoginService,private router:Router,dateTimeAdapter: DateTimeAdapter<any>){
     dateTimeAdapter.setLocale('es-PE');
 
@@ -167,24 +169,23 @@ data:string= localStorage.getItem("data");
   }
 
 enviaFechas(){
-console.log(this.selectedMoment);
-console.log(this.selectedMoment2);
-var test1 = this.selectedMoment.toDateString().split(" ",4); 
-var test2 = this.selectedMoment2.toDateString().split(" ",4); 
-this.loadDatos(test1[1]+test1[2]+test1[3],test2[1]+test2[2]+test2[3]);
+this.labels=[];
+this.values=[];
+var empresa = localStorage.getItem("currentEmpresa");
+console.log("empresa",empresa);
+
+var fec1 = this.selectedMoment.toDateString().split(" ",4); 
+var fec2 = this.selectedMoment2.toDateString().split(" ",4); 
+this.loadDatos(fec1[1]+fec1[2]+fec1[3],fec2[1]+fec2[2]+fec2[3],empresa);
 
   }
 
- loadDatos(inicio:string,final:string){
-  var piechar = new Chart('canvas');
-  piechar.destroy;
-  var barchar = new Chart('canvas2');
-barchar.destroy;
+ loadDatos(inicio:string,final:string,empresa:string){
 this.labels=[];
 this.values=[];
+this.resetChart();
 
-
-this.api.getReportes(inicio,final)
+this.api.getReportes(inicio,final,empresa)
 .subscribe(res => {
   let alldates = res['data'].map(res => res.total)
   let  alllabels = res['data'].map(res => res.dimensionad_exchange_device_category)
@@ -199,7 +200,11 @@ this.api.getReportes(inicio,final)
     
   })
   
-  var piechar = new Chart('canvas', {
+  if(this.window != undefined)
+  this.window.destroy();
+  this.window = new Chart(this.piechar, {});
+  
+  var piechar = new Chart('canvas2', {
     type: 'doughnut',
     data: {
       labels: this.labels,
@@ -240,8 +245,8 @@ this.api.getReportes(inicio,final)
       }
     }
   })
-
-  this.barchar = new Chart('canvas2', {
+  this
+   this.barchar = new Chart('canvas', {
     type: 'bar',
     data: {
       labels: this.labels,
@@ -286,6 +291,16 @@ this.api.getReportes(inicio,final)
 
 })
 
+}
+
+resetChart(){
+var pieChartContent = document.getElementById('pieChartContent');
+pieChartContent.innerHTML = '&nbsp;';
+pieChartContent.innerHTML='<canvas id="canvas"><canvas>';
+
+var barChartContent = document.getElementById('barChartContent');
+barChartContent.innerHTML = '&nbsp;';
+barChartContent.innerHTML='<canvas id="canvas2"><canvas>';
 }
 
 }
