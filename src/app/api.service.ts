@@ -32,8 +32,12 @@ getReportes(inicio: string, final: string,empresa:string) {
 }
 
 
-getDatos() {
-  return this._http.get("http://35.231.78.51/api/api.php/productos").map(result => result);
+getDatos(empresa:string) {
+  return this._http.post(Global.BASE_API_URL+'api.php/inicio',
+  {
+    emp:empresa
+  },{ headers: this.headers }
+  ).pipe(map(result => result));
 }
   
 }

@@ -8,7 +8,7 @@ import {Datos} from '../modelos/datos';
 import { OwlDateTimeModule, OwlNativeDateTimeModule, DateTimeAdapter, OWL_DATE_TIME_FORMATS } from 'ng-pick-datetime';
 import { BrowserModule } from '@angular/platform-browser';
 import "ng-pick-datetime/assets/style/picker.min.css";
-import { createUrlResolverWithoutPackagePrefix } from '@angular/compiler';
+
 
 
 export const MY_MOMENT_FORMATS = {
@@ -45,6 +45,7 @@ piechar =[];
 barchar =[];
 labels=[];
 values=[];
+ingreso:number;
 data:string= localStorage.getItem("data");
   window: any;
   
@@ -59,8 +60,10 @@ data:string= localStorage.getItem("data");
       this.router.navigate(['']);
       
     }
-    this.api.getDatos()
+    let emp=localStorage.getItem("currentEmpresa")
+    this.api.getDatos(emp)
     .subscribe(res => {
+      this.ingreso= res['ingreso'].map(res => res.ingreso);
       let alldates = res['data'].map(res => res.total)
       let  alllabels = res['data'].map(res => res.dimensionad_exchange_device_category)
   
@@ -99,18 +102,32 @@ data:string= localStorage.getItem("data");
             }
           
           ],
-       
+    
         },
         options: {
+          pieceLabel: {
+            fontColor: '#000'
+        },
           legend: {
-            display: true
-          },
+            display: true,
+            labels: {
+              fontColor: 'rgb(0,0,0)',
+              boxWidth: 10,
+              padding: 20
+          }
+        },
+          title: {
+            display: true,
+            text: 'Ingresos por dispositivo',
+            position:'bottom'
+        },
+         
           scales: {
             xAxes: [{
-              display: true
+              ticks:{beginAtZero:true}
             }],
             yAxes: [{
-              display: true
+              ticks:{beginAtZero:true}
             }]
           }
         }
@@ -145,16 +162,12 @@ data:string= localStorage.getItem("data");
         },
         options: {
           legend: {
-            display: true
-          },
-          scales: {
-            xAxes: [{
-              display: true
-            }],
-            yAxes: [{
-              display: true
-            }]
-          }
+            display: true,
+            position: 'right',
+
+        },
+        
+
         }
       })
   
@@ -187,6 +200,7 @@ this.resetChart();
 
 this.api.getReportes(inicio,final,empresa)
 .subscribe(res => {
+  this.ingreso= res['ingreso'].map(res => res.ingreso);
   let alldates = res['data'].map(res => res.total)
   let  alllabels = res['data'].map(res => res.dimensionad_exchange_device_category)
 
@@ -204,7 +218,7 @@ this.api.getReportes(inicio,final,empresa)
   this.window.destroy();
   this.window = new Chart(this.piechar, {});
   
-  var piechar = new Chart('canvas2', {
+  var piechar = new Chart('canvas', {
     type: 'doughnut',
     data: {
       labels: this.labels,
@@ -246,7 +260,7 @@ this.api.getReportes(inicio,final,empresa)
     }
   })
   this
-   this.barchar = new Chart('canvas', {
+   this.barchar = new Chart('canvas2', {
     type: 'bar',
     data: {
       labels: this.labels,

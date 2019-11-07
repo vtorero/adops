@@ -31,11 +31,17 @@ constructor(private router:Router,private login:LoginService) {
           this.login.loginUser(this.usuario.usuario,this.usuario.password).subscribe(data=>{
             if(data['rows']==1) {
               console.log(data['data'][0]);
-              this.router.navigate(['dash']);
+              localStorage.removeItem("currentUser");
+              localStorage.removeItem("currentNombre");
+              localStorage.removeItem("currentAvatar");
+              localStorage.removeItem("currentEmpresa");
+              
               localStorage.setItem("currentUser",data['data'][0]['usuario']);
               localStorage.setItem("currentNombre",data['data'][0]['nombre']);
               localStorage.setItem("currentAvatar",data['data'][0]['imagen']);
               localStorage.setItem("currentEmpresa",data['data'][0]['empresa']);
+              this.router.navigate(['dash']);
+
             }else{
               this.error_user = true;
               console.log(this.error_user)
