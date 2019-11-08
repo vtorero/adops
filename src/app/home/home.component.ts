@@ -44,6 +44,7 @@ pie = [];
 piechar =[];
 barchar =[];
 labels=[];
+line=[];
 values=[];
 ingreso:number;
 data:string= localStorage.getItem("data");
@@ -119,7 +120,7 @@ data:string= localStorage.getItem("data");
           title: {
             display: true,
             text: 'Ingresos por dispositivo',
-            position:'bottom'
+            position:'top'
         },
          
           scales: {
@@ -161,17 +162,61 @@ data:string= localStorage.getItem("data");
        
         },
         options: {
-          legend: {
+          title: {
             display: true,
-            position: 'right',
-
+            text: 'Ingresos por día',
+            position:'top'
         },
-        
-
+          legend: {
+            display: false,
+            position: 'bottom',
+        },
         }
       })
   
   
+      this.barchar = new Chart('canvas3', {
+        type: 'line',
+        data: {
+          labels: this.labels,
+          datasets: [
+            {
+              data: this.values,
+              borderColor: '#3cba9f',
+              fill: true,
+              backgroundColor: [  
+                "#3cb371",  
+                "#0000FF",  
+                "#9966FF",  
+                "#4C4CFF",  
+                "#00FFFF",  
+                "#f990a7",  
+                "#aad2ed",  
+                "#FF00FF",  
+                "Blue",  
+                "Red",  
+                "Blue"  
+              ]
+            }
+          
+          ],
+       
+        },
+        options: {
+          title: {
+            display: true,
+            text: 'Ingresos por día',
+            position:'top'
+        },
+          legend: {
+            display: false,
+            position: 'bottom',
+        },
+        }
+      })
+
+
+
     })
   
 
