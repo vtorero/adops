@@ -73,14 +73,18 @@ data:string= localStorage.getItem("data");
       this.ingreso_total= res['ingreso'].map(res => res.ingreso_total)
       let alldates = res['data'].map(res => res.total)
       let  alllabels = res['data'].map(res => res.dimensionad_exchange_device_category)
-      let dias = res['diario'].map(res=>res.dimensionad_exchange_date)
-      let dias_val =res['diario'].map(res=>res.total)
+      let dias_val = res['diario'].map(res=>res.dimensionad_exchange_date)
+      let dias_valdesc =res['diario_descktop'].map(res=>res.total)
+      let dias_valmovil =res['diario_movil'].map(res=>res.total)
+      let dias_valtablet =res['diario_table'].map(res=>res.total)
   
       alllabels.forEach((res)=>{this.labels.push(res)});
       alldates.forEach((res) =>{this.values.push(res)});
 
-      dias.forEach((res)=>{this.labeldias.push(res)})
-      dias_val.forEach((res)=>{this.dias_value.push(res)})
+      dias_val.forEach((res)=>{this.labeldias.push(res)})
+      dias_valdesc.forEach((res)=>{this.dias_value.push(res)})
+      dias_valmovil.forEach((res)=>{this.dias_value_movil.push(res)})
+      dias_valtablet.forEach((res)=>{this.dias_value_tablet.push(res)})
       
       var piechar = new Chart('canvas', {
         type: 'doughnut',
@@ -188,7 +192,7 @@ data:string= localStorage.getItem("data");
               pointRadius: 4,
               pointHitRadius: 10,
               // notice the gap in the data and the spanGaps: false
-              data: [10, 16.5, 12.0, 9.7, 6.4, 7.8],
+              data:this.dias_value_movil,
               spanGaps: false,
             },
             {
@@ -211,7 +215,7 @@ data:string= localStorage.getItem("data");
               pointRadius: 4,
               pointHitRadius: 10,
               // notice the gap in the data and the spanGaps: false
-              data: [3, 1.5, 1.0, 0.7, 4, 3.5],
+              data: this.dias_value_tablet,
               spanGaps: false,
             }
           ],
