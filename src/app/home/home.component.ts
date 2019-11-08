@@ -47,7 +47,9 @@ labels=[];
 line=[];
 values=[];
 labeldias=[];
-dias_value=[];
+dias_value=[]
+dias_value_movil=[];
+dias_value_tablet=[];
 ingreso_cpm:number;
 ingreso_total:number;
 data:string= localStorage.getItem("data");
@@ -136,48 +138,9 @@ data:string= localStorage.getItem("data");
         }
       })
   
+ 
+  
       this.barchar = new Chart('canvas2', {
-        type: 'bar',
-        data: {
-          labels: this.labels,
-          datasets: [
-            {
-              data: this.values,
-              borderColor: '#3cba9f',
-              fill: true,
-              backgroundColor: [  
-                "#3cb371",  
-                "#0000FF",  
-                "#9966FF",  
-                "#4C4CFF",  
-                "#00FFFF",  
-                "#f990a7",  
-                "#aad2ed",  
-                "#FF00FF",  
-                "Blue",  
-                "Red",  
-                "Blue"  
-              ]
-            }
-          
-          ],
-       
-        },
-        options: {
-          title: {
-            display: true,
-            text: 'Ingresos por día',
-            position:'top'
-        },
-          legend: {
-            display: false,
-            position: 'bottom',
-        },
-        }
-      })
-  
-  
-      this.barchar = new Chart('canvas3', {
         type: 'line',
         data: {
           labels: this.labeldias,
@@ -192,12 +155,12 @@ data:string= localStorage.getItem("data");
               borderDash: [],
               borderDashOffset: 0.0,
               borderJoinStyle: 'miter',
-              pointBorderColor: "white",
-              pointBackgroundColor: "black",
+              pointBorderColor: "3cb371",
+              pointBackgroundColor: "3cb371",
               pointBorderWidth: 1,
               pointHoverRadius: 8,
               pointHoverBackgroundColor: "#3cb371",
-              pointHoverBorderColor: "yellow",
+              pointHoverBorderColor: "3cb371",
               pointHoverBorderWidth: 2,
               pointRadius: 4,
               pointHitRadius: 10,
@@ -226,6 +189,29 @@ data:string= localStorage.getItem("data");
               pointHitRadius: 10,
               // notice the gap in the data and the spanGaps: false
               data: [10, 16.5, 12.0, 9.7, 6.4, 7.8],
+              spanGaps: false,
+            },
+            {
+              label: "Tablet",
+              fill: true,
+              lineTension: 0,
+              backgroundColor: "RGBA(246,91,246,0.3)",
+              borderColor: "#F65BF6", // The main line color
+              borderCapStyle: 'butt',
+              borderDash: [], // try [5, 15] for instance
+              borderDashOffset: 0.0,
+              borderJoinStyle: 'miter',
+              pointBorderColor: "#F65BF6",
+              pointBackgroundColor: "F65BF6",
+              pointBorderWidth: 1,
+              pointHoverRadius: 8,
+              pointHoverBackgroundColor: "#F65BF6",
+              pointHoverBorderColor: "#F65BF6",
+              pointHoverBorderWidth: 2,
+              pointRadius: 4,
+              pointHitRadius: 10,
+              // notice the gap in the data and the spanGaps: false
+              data: [3, 1.5, 1.0, 0.7, 4, 3.5],
               spanGaps: false,
             }
           ],
@@ -286,27 +272,37 @@ this.loadDatos(fec1[1]+fec1[2]+fec1[3],fec2[1]+fec2[2]+fec2[3],empresa);
 
   }
 
- loadDatos(inicio:string,final:string,empresa:string){
-this.labels=[];
-this.values=[];
-this.resetChart();
+  /*carga datos click*/ 
 
-this.api.getReportes(inicio,final,empresa)
-.subscribe(res => {
-  this.ingreso_cpm= res['ingreso'].map(res => res.ingreso_cpm);
-  this.ingreso_total= res['ingreso'].map(res => res.ingreso_total)
-  let alldates = res['data'].map(res => res.total)
-  let  alllabels = res['data'].map(res => res.dimensionad_exchange_device_category)
+loadDatos(inicio:string,final:string,empresa:string){
 
-  alllabels.forEach((res) => {
-    this.labels.push(res);
+      this.labels=[];
+      this.values=[];
+      this.labeldias=[];
+      this.dias_value=[];
+      this.dias_value_movil=[];
+      this.dias_value_tablet=[];
+      this.resetChart();
+
+      this.api.getReportes(inicio,final,empresa)
+      .subscribe(res => {
+        this.ingreso_cpm= res['ingreso'].map(res => res.ingreso_cpm);
+        this.ingreso_total= res['ingreso'].map(res => res.ingreso_total)
+        let alldates = res['data'].map(res => res.total)
+        let  alllabels = res['data'].map(res => res.dimensionad_exchange_device_category)
+
+        let dias = res['diario_desktop'].map(res=>res.dimensionad_exchange_date)
+        let dias_val =res['diario_desktop'].map(res=>res.total)
+        let dias_valmovil =res['diario_movil'].map(res=>res.total)
+        let dias_valtablet =res['diario_table'].map(res=>res.total)
     
-  })
+        alllabels.forEach((res)=>{this.labels.push(res)});
+        alldates.forEach((res) =>{this.values.push(res)});
   
-  alldates.forEach((res) => {
-    this.values.push(res);
-    
-  })
+        dias.forEach((res)=>{this.labeldias.push(res)})
+        dias_val.forEach((res)=>{this.dias_value.push(res)})
+        dias_valmovil.forEach((res)=>{this.dias_value_movil.push(res)})
+        dias_valtablet.forEach((res)=>{this.dias_value_tablet.push(res)})
   
   if(this.window != undefined)
   this.window.destroy();
@@ -353,48 +349,117 @@ this.api.getReportes(inicio,final,empresa)
       }
     }
   })
-  this
-   this.barchar = new Chart('canvas2', {
-    type: 'bar',
+
+
+  this.barchar = new Chart('canvas2', {
+    type: 'line',
     data: {
-      labels: this.labels,
+      labels: this.labeldias,
       datasets: [
         {
-          data: this.values,
-          borderColor: '#3cba9f',
+          label: "Desktop",
           fill: true,
-          backgroundColor: [  
-            "#3cb371",  
-            "#0000FF",  
-            "#9966FF",  
-            "#4C4CFF",  
-            "#00FFFF",  
-            "#f990a7",  
-            "#aad2ed",  
-            "#FF00FF",  
-            "Blue",  
-            "Red",  
-            "Blue"  
-          ]
+          lineTension: 0,
+          backgroundColor: "RGBA(0,233,168,0.3)",
+          borderColor: "#3cb371",
+          borderCapStyle: 'butt',
+          borderDash: [],
+          borderDashOffset: 0.0,
+          borderJoinStyle: 'miter',
+          pointBorderColor: "3cb371",
+          pointBackgroundColor: "3cb371",
+          pointBorderWidth: 1,
+          pointHoverRadius: 8,
+          pointHoverBackgroundColor: "#3cb371",
+          pointHoverBorderColor: "3cb371",
+          pointHoverBorderWidth: 2,
+          pointRadius: 4,
+          pointHitRadius: 10,
+          // notice the gap in the data and the spanGaps: true
+          data: this.dias_value,
+          spanGaps: true,
+        },
+        {
+          label: "Mobil",
+          fill: true,
+          lineTension: 0,
+          backgroundColor: "RGBA(61,0,255,0.3)",
+          borderColor: "blue", // The main line color
+          borderCapStyle: 'butt',
+          borderDash: [], // try [5, 15] for instance
+          borderDashOffset: 0.0,
+          borderJoinStyle: 'miter',
+          pointBorderColor: "blue",
+          pointBackgroundColor: "white",
+          pointBorderWidth: 1,
+          pointHoverRadius: 8,
+          pointHoverBackgroundColor: "blue",
+          pointHoverBorderColor: "blue",
+          pointHoverBorderWidth: 2,
+          pointRadius: 4,
+          pointHitRadius: 10,
+          // notice the gap in the data and the spanGaps: false
+          data:this.dias_value_movil,
+          spanGaps: false,
+        },
+        {
+          label: "Tablet",
+          fill: true,
+          lineTension: 0,
+          backgroundColor: "RGBA(246,91,246,0.3)",
+          borderColor: "#F65BF6", // The main line color
+          borderCapStyle: 'butt',
+          borderDash: [], // try [5, 15] for instance
+          borderDashOffset: 0.0,
+          borderJoinStyle: 'miter',
+          pointBorderColor: "#F65BF6",
+          pointBackgroundColor: "F65BF6",
+          pointBorderWidth: 1,
+          pointHoverRadius: 8,
+          pointHoverBackgroundColor: "#F65BF6",
+          pointHoverBorderColor: "#F65BF6",
+          pointHoverBorderWidth: 2,
+          pointRadius: 4,
+          pointHitRadius: 10,
+          // notice the gap in the data and the spanGaps: false
+          data: this.dias_value_tablet,
+          spanGaps: false,
         }
-      
       ],
    
     },
     options: {
       legend: {
-        display: true
+        display: true,
+        },
+      responsive: true,
+      title:{
+          display:true,
+          text:'Ingreso por día'
+      },
+      tooltips: {
+          mode: 'index',
+          intersect: true
+      },
+      hover: {
+          mode: 'nearest',
+          intersect: true
       },
       scales: {
-        xAxes: [{
-          display: true
-        }],
         yAxes: [{
-          display: true
-        }]
-      }
-    }
+            ticks: {
+                beginAtZero:true
+            },
+            scaleLabel: {
+                 display: true,
+                 labelString: 'Dolares',
+                 fontSize: 20 
+              }
+        }]            
+    }  
+  }
   })
+
 
 
 })
