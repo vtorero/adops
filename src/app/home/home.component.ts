@@ -46,7 +46,10 @@ barchar =[];
 labels=[];
 line=[];
 values=[];
-ingreso:number;
+labeldias=[];
+dias_value=[];
+ingreso_cpm:number;
+ingreso_total:number;
 data:string= localStorage.getItem("data");
   window: any;
   
@@ -64,19 +67,18 @@ data:string= localStorage.getItem("data");
     let emp=localStorage.getItem("currentEmpresa")
     this.api.getDatos(emp)
     .subscribe(res => {
-      this.ingreso= res['ingreso'].map(res => res.ingreso);
+      this.ingreso_cpm= res['ingreso'].map(res => res.ingreso_cpm)
+      this.ingreso_total= res['ingreso'].map(res => res.ingreso_total)
       let alldates = res['data'].map(res => res.total)
       let  alllabels = res['data'].map(res => res.dimensionad_exchange_device_category)
+      let dias = res['diario'].map(res=>res.dimensionad_exchange_date)
+      let dias_val =res['diario'].map(res=>res.total)
   
-      alllabels.forEach((res) => {
-        this.labels.push(res);
-        
-      })
-      
-      alldates.forEach((res) => {
-        this.values.push(res);
-        
-      })
+      alllabels.forEach((res)=>{this.labels.push(res)});
+      alldates.forEach((res) =>{this.values.push(res)});
+
+      dias.forEach((res)=>{this.labeldias.push(res)})
+      dias_val.forEach((res)=>{this.dias_value.push(res)})
       
       var piechar = new Chart('canvas', {
         type: 'doughnut',
@@ -178,41 +180,87 @@ data:string= localStorage.getItem("data");
       this.barchar = new Chart('canvas3', {
         type: 'line',
         data: {
-          labels: this.labels,
+          labels: this.labeldias,
           datasets: [
             {
-              data: this.values,
-              borderColor: '#3cba9f',
+              label: "Desktop",
               fill: true,
-              backgroundColor: [  
-                "#3cb371",  
-                "#0000FF",  
-                "#9966FF",  
-                "#4C4CFF",  
-                "#00FFFF",  
-                "#f990a7",  
-                "#aad2ed",  
-                "#FF00FF",  
-                "Blue",  
-                "Red",  
-                "Blue"  
-              ]
+              lineTension: 0,
+              backgroundColor: "RGBA(0,233,168,0.3)",
+              borderColor: "#3cb371",
+              borderCapStyle: 'butt',
+              borderDash: [],
+              borderDashOffset: 0.0,
+              borderJoinStyle: 'miter',
+              pointBorderColor: "white",
+              pointBackgroundColor: "black",
+              pointBorderWidth: 1,
+              pointHoverRadius: 8,
+              pointHoverBackgroundColor: "#3cb371",
+              pointHoverBorderColor: "yellow",
+              pointHoverBorderWidth: 2,
+              pointRadius: 4,
+              pointHitRadius: 10,
+              // notice the gap in the data and the spanGaps: true
+              data: this.dias_value,
+              spanGaps: true,
+            },
+            {
+              label: "Mobil",
+              fill: true,
+              lineTension: 0,
+              backgroundColor: "RGBA(61,0,255,0.3)",
+              borderColor: "blue", // The main line color
+              borderCapStyle: 'butt',
+              borderDash: [], // try [5, 15] for instance
+              borderDashOffset: 0.0,
+              borderJoinStyle: 'miter',
+              pointBorderColor: "blue",
+              pointBackgroundColor: "white",
+              pointBorderWidth: 1,
+              pointHoverRadius: 8,
+              pointHoverBackgroundColor: "blue",
+              pointHoverBorderColor: "blue",
+              pointHoverBorderWidth: 2,
+              pointRadius: 4,
+              pointHitRadius: 10,
+              // notice the gap in the data and the spanGaps: false
+              data: [10, 16.5, 12.0, 9.7, 6.4, 7.8],
+              spanGaps: false,
             }
-          
           ],
        
         },
         options: {
-          title: {
-            display: true,
-            text: 'Ingresos por día',
-            position:'top'
-        },
           legend: {
-            display: false,
-            position: 'bottom',
-        },
-        }
+            display: true,
+            },
+          responsive: true,
+          title:{
+              display:true,
+              text:'Ingreso por día'
+          },
+          tooltips: {
+              mode: 'index',
+              intersect: true
+          },
+          hover: {
+              mode: 'nearest',
+              intersect: true
+          },
+          scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero:true
+                },
+                scaleLabel: {
+                     display: true,
+                     labelString: 'Dolares',
+                     fontSize: 20 
+                  }
+            }]            
+        }  
+      }
       })
 
 
@@ -245,7 +293,8 @@ this.resetChart();
 
 this.api.getReportes(inicio,final,empresa)
 .subscribe(res => {
-  this.ingreso= res['ingreso'].map(res => res.ingreso);
+  this.ingreso_cpm= res['ingreso'].map(res => res.ingreso_cpm);
+  this.ingreso_total= res['ingreso'].map(res => res.ingreso_total)
   let alldates = res['data'].map(res => res.total)
   let  alllabels = res['data'].map(res => res.dimensionad_exchange_device_category)
 
