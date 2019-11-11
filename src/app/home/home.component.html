@@ -36,7 +36,7 @@
     </mk-box-info>
   </div>
 </div>
-<mk-box header="Principales resutados" [isCollapsable]="false" [isRemovable]="false">
+<mk-box header="Principales resultados" [isCollapsable]="true" [isRemovable]="false">
 <div class="row">
 <div class="col-md-6 col-xs-12">
   <div class="chart-container">    
@@ -50,32 +50,52 @@
     <div *ngIf="cargando" style="margin-left: 120px"><img src="assets/img/load.gif"></div>
   </div> 
 </div>
-<div class="col-md-12 col-xs-12">
-  <div class="chart-container">   
-    
-  </div> 
-</div>
+
 </div>
 </mk-box>
-<mk-box header="Download" [isCollapsable]="false" [isRemovable]="false">
-  <p>Angular Admin LTE is available at npm, if you have an existing application run the following command to download it to your project.</p>
-  <p>Angular Admin LTE is distributed in commonjs format, a module manager of your choice is required.</p>
-  <pre><code class="language-bash">npm install angular-admin-lte --save</code></pre>
+<mk-box header="Ingreso por creatividad" [isCollapsable]="true" [isRemovable]="false">
+  <div class="col-md-12 col-xs-12">
+    <div class="chart-container">   
+      <div id="barChartContent"><canvas id="canvas4"></canvas></div>
+    </div> 
+  </div>
 </mk-box>
-
-<mk-box header="Import" [isCollapsable]="false" [isRemovable]="false">
-  <p>UI components are configured as modules, once Angular Admin LTE is downloaded and configured, modules and apis can be imported from 'angular-loading-page' shorthand in your application code.</p>
-  <pre><code class="language-typescript">import &#123; LayoutModule &#125; from 'angular-admin-lte';    //Loading layout module
-import &#123; BoxModule &#125; from 'angular-admin-lte';       //Box component</code></pre>
-</mk-box>
-
-<mk-box header="Dependencies" [isCollapsable]="false" [isRemovable]="false">
-  <p>Angular Admin LTE have no JS dependencies but still need Admin LTE and Bootstrap CSS. You can also use FontAwesome and Ionicons as it is used by default in Admin LTE.</p>
-  <pre><code class="language-typescript">"styles": [
-  "node_modules/bootstrap-css-only/css/bootstrap.min.css",
-  "node_modules/font-awesome/css/font-awesome.css", // optional
-  "node_modules/ionicons/css/ionicons.css", // optional
-  "node_modules/admin-lte-css/dist/css/AdminLTE.css",
-  "node_modules/admin-lte-css/dist/css/skins/_all-skins.css"
-]</code></pre>
+<mk-box header="Data consultada" [isCollapsable]="true" [isRemovable]="false">
+  
+  <div class="mat-elevation-z8">
+    <table mat-table [dataSource]="dataSource">
+  
+      <!-- Position Column -->
+      <ng-container matColumnDef="position">
+        <th mat-header-cell *matHeaderCellDef> No. </th>
+        <td mat-cell *matCellDef="let element"> {{element.position}} </td>
+      </ng-container>
+  
+      <!-- Name Column -->
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef> Name </th>
+        <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+      </ng-container>
+  
+      <!-- Weight Column -->
+      <ng-container matColumnDef="weight">
+        <th mat-header-cell *matHeaderCellDef> Weight </th>
+        <td mat-cell *matCellDef="let element"> {{element.weight}} </td>
+      </ng-container>
+  
+      <!-- Symbol Column -->
+      <ng-container matColumnDef="symbol">
+        <th mat-header-cell *matHeaderCellDef> Symbol </th>
+        <td mat-cell *matCellDef="let element"> {{element.symbol}} </td>
+      </ng-container>
+  
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  
+    <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+  </div>
+  
+  
+  
 </mk-box>

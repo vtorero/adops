@@ -22,7 +22,8 @@ import { LoginComponent } from './login/login.component';
 import { MatNativeDateModule } from '@angular/material/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
-
+import {MatPaginatorModule} from '@angular/material/paginator';
+import {MatTableModule} from '@angular/material/table';
 
 
 @NgModule({
@@ -34,7 +35,7 @@ import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
     LoadingPageModule, MaterialBarModule,HttpClientModule,
     BoxModule,
     MkBoxInfoModule,
-    FormsModule,
+    FormsModule,MatPaginatorModule,MatTableModule,
     MatDatepickerModule,BrowserAnimationsModule,
     MatInputModule,MatButtonModule,MatCardModule,MatFormFieldModule,MatCheckboxModule,MatRadioModule,MatSelectModule,MatNativeDateModule  ],
   declarations: [

@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit, NgModule} from '@angular/core';
+import { Component, NgModule, ViewChild} from '@angular/core';
 import { Chart } from 'chart.js';  
 import {ApiService} from '../api.service';
 import * as Prism from 'prismjs';
@@ -8,6 +8,8 @@ import {Datos} from '../modelos/datos';
 import { OwlDateTimeModule, OwlNativeDateTimeModule, DateTimeAdapter, OWL_DATE_TIME_FORMATS } from 'ng-pick-datetime';
 import { BrowserModule } from '@angular/platform-browser';
 import "ng-pick-datetime/assets/style/picker.min.css";
+import {MatPaginatorModule, PageEvent, MatPaginator} from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
 
 
 
@@ -21,7 +23,35 @@ export const MY_MOMENT_FORMATS = {
   monthYearA11yLabel: 'MM YYYY',
 };
 
+export interface PeriodicElement {
+  name: string;
+  position: number;
+  weight: number;
+  symbol: string;
+}
 
+const ELEMENT_DATA: PeriodicElement[] = [
+  {position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H'},
+  {position: 2, name: 'Helium', weight: 4.0026, symbol: 'He'},
+  {position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li'},
+  {position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be'},
+  {position: 5, name: 'Boron', weight: 10.811, symbol: 'B'},
+  {position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C'},
+  {position: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N'},
+  {position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O'},
+  {position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F'},
+  {position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne'},
+  {position: 11, name: 'Sodium', weight: 22.9897, symbol: 'Na'},
+  {position: 12, name: 'Magnesium', weight: 24.305, symbol: 'Mg'},
+  {position: 13, name: 'Aluminum', weight: 26.9815, symbol: 'Al'},
+  {position: 14, name: 'Silicon', weight: 28.0855, symbol: 'Si'},
+  {position: 15, name: 'Phosphorus', weight: 30.9738, symbol: 'P'},
+  {position: 16, name: 'Sulfur', weight: 32.065, symbol: 'S'},
+  {position: 17, name: 'Chlorine', weight: 35.453, symbol: 'Cl'},
+  {position: 18, name: 'Argon', weight: 39.948, symbol: 'Ar'},
+  {position: 19, name: 'Potassium', weight: 39.0983, symbol: 'K'},
+  {position: 20, name: 'Calcium', weight: 40.078, symbol: 'Ca'},
+];
 
 @Component({
   selector: 'app-home',
@@ -31,12 +61,14 @@ export const MY_MOMENT_FORMATS = {
 })
 
 @NgModule({
-  imports: [OwlDateTimeModule,OwlNativeDateTimeModule,BrowserModule],
+  imports: [OwlDateTimeModule,OwlNativeDateTimeModule,BrowserModule,MatPaginatorModule],
   providers:[{provide: OWL_DATE_TIME_FORMATS, useValue: MY_MOMENT_FORMATS},]
 })
 
 
 export class HomeComponent{
+
+
 public selectedMoment = new Date();
 public selectedMoment2 = new Date();
 datos:Datos;
@@ -50,27 +82,41 @@ labeldias=[];
 dias_value=[]
 dias_value_movil=[];
 dias_value_tablet=[];
+creat_dias=[];
+creat_total=[];
 ingreso_cpm:number;
 ingreso_total:number;
 impresiones:number;
+datatable=[]
 cargando:boolean=false;
+pageEvent: PageEvent;
 data:string= localStorage.getItem("data");
   window: any;
+
+  displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
+  dataSource = new MatTableDataSource<PeriodicElement>(this.datatable);
+  @ViewChild(MatPaginator, {}) paginator: MatPaginator;
   
   constructor(private api:ApiService,private _login:LoginService,private router:Router,dateTimeAdapter: DateTimeAdapter<any>){
     dateTimeAdapter.setLocale('es-PE');
 
   }
-
   ngOnInit() {
 
+    this.dataSource.paginator = this.paginator;
     if(this._login.getCurrentUser==false){
       this.router.navigate(['']);
-      
+
     }
+
+    this.cargando=true;
     let emp=localStorage.getItem("currentEmpresa")
     this.api.getDatos(emp)
-    .subscribe(res => {
+        .subscribe(res => {
+          let dataTable = res['creatives'];
+          console.log("",dataTable);
+
+
       this.ingreso_cpm= res['ingreso'].map(res => res.ingreso_cpm);
       this.ingreso_total= res['ingreso'].map(res => res.ingreso_total);
       this.impresiones= res['ingreso'].map(res => res.impresiones);
@@ -80,6 +126,8 @@ data:string= localStorage.getItem("data");
       let dias_valdesc =res['diario_desktop'].map(res=>res.total)
       let dias_valmovil =res['diario_movil'].map(res=>res.total)
       let dias_valtablet =res['diario_tablet'].map(res=>res.total)
+      let creative_sizes = res['creatives'].map(res=>res.dimensionad_exchange_creative_sizes);
+      let creative_total = res['creatives'].map(res=>res.total);
   
       alllabels.forEach((res)=>{this.labels.push(res)});
       alldates.forEach((res) =>{this.values.push(res)});
@@ -88,7 +136,12 @@ data:string= localStorage.getItem("data");
       dias_valdesc.forEach((res)=>{this.dias_value.push(res)})
       dias_valmovil.forEach((res)=>{this.dias_value_movil.push(res)})
       dias_valtablet.forEach((res)=>{this.dias_value_tablet.push(res)})
-      
+
+      creative_sizes.forEach((res)=>{this.creat_dias.push(res)})
+      creative_total.forEach((res)=>{this.creat_total.push(res)})
+
+      var otro= this.api.getPie(this.creat_dias,this.creat_total,'canvas4','Ingreso por creatividad');
+
       var piechar = new Chart('canvas', {
         type: 'doughnut',
         data: {
@@ -256,11 +309,11 @@ data:string= localStorage.getItem("data");
       }
       })
 
-
+      
 
     })
   
-
+    this.cargando=false;
   }
 
   ngAfterViewInit() {
