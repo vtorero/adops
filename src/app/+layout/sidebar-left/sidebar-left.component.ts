@@ -7,10 +7,14 @@ import * as Prism from 'prismjs';
   templateUrl: './sidebar-left.component.html'
 })
 export class SidebarLeftComponent implements AfterViewInit {
+  imagen:string
+  empresa:string
   /**
    * @method ngAfterViewInit
    */
   ngAfterViewInit() {
     Prism.highlightAll();
+    this.imagen=localStorage.getItem("currentAvatar")
+    this.empresa=localStorage.getItem("currentEmpresa")
   }
 }

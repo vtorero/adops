@@ -18,6 +18,17 @@ public imagen:string
     this.usuario=nombre;
   }
 
+  logout(){
+  localStorage.removeItem("currentEmpresa");
+  localStorage.removeItem("currentUser");
+  localStorage.removeItem("currentNombre");
+  localStorage.removeItem("currentAvatar");
+  console.log("salir");
+  
+  
+
+  }
+
 }
 
 

@@ -52,6 +52,8 @@ dias_value_movil=[];
 dias_value_tablet=[];
 ingreso_cpm:number;
 ingreso_total:number;
+impresiones:number;
+cargando:boolean=false;
 data:string= localStorage.getItem("data");
   window: any;
   
@@ -69,14 +71,15 @@ data:string= localStorage.getItem("data");
     let emp=localStorage.getItem("currentEmpresa")
     this.api.getDatos(emp)
     .subscribe(res => {
-      this.ingreso_cpm= res['ingreso'].map(res => res.ingreso_cpm)
-      this.ingreso_total= res['ingreso'].map(res => res.ingreso_total)
+      this.ingreso_cpm= res['ingreso'].map(res => res.ingreso_cpm);
+      this.ingreso_total= res['ingreso'].map(res => res.ingreso_total);
+      this.impresiones= res['ingreso'].map(res => res.impresiones);
       let alldates = res['data'].map(res => res.total)
       let  alllabels = res['data'].map(res => res.dimensionad_exchange_device_category)
       let dias_val = res['diario'].map(res=>res.dimensionad_exchange_date)
-      let dias_valdesc =res['diario_descktop'].map(res=>res.total)
+      let dias_valdesc =res['diario_desktop'].map(res=>res.total)
       let dias_valmovil =res['diario_movil'].map(res=>res.total)
-      let dias_valtablet =res['diario_table'].map(res=>res.total)
+      let dias_valtablet =res['diario_tablet'].map(res=>res.total)
   
       alllabels.forEach((res)=>{this.labels.push(res)});
       alldates.forEach((res) =>{this.values.push(res)});
@@ -287,18 +290,20 @@ loadDatos(inicio:string,final:string,empresa:string){
       this.dias_value_movil=[];
       this.dias_value_tablet=[];
       this.resetChart();
+      this.cargando=true;
 
       this.api.getReportes(inicio,final,empresa)
       .subscribe(res => {
         this.ingreso_cpm= res['ingreso'].map(res => res.ingreso_cpm);
-        this.ingreso_total= res['ingreso'].map(res => res.ingreso_total)
+        this.ingreso_total= res['ingreso'].map(res => res.ingreso_total);
+        this.impresiones= res['ingreso'].map(res => res.impresiones);
         let alldates = res['data'].map(res => res.total)
         let  alllabels = res['data'].map(res => res.dimensionad_exchange_device_category)
 
         let dias = res['diario_desktop'].map(res=>res.dimensionad_exchange_date)
         let dias_val =res['diario_desktop'].map(res=>res.total)
         let dias_valmovil =res['diario_movil'].map(res=>res.total)
-        let dias_valtablet =res['diario_table'].map(res=>res.total)
+        let dias_valtablet =res['diario_tablet'].map(res=>res.total)
     
         alllabels.forEach((res)=>{this.labels.push(res)});
         alldates.forEach((res) =>{this.values.push(res)});
@@ -463,7 +468,7 @@ loadDatos(inicio:string,final:string,empresa:string){
     }  
   }
   })
-
+this.cargando=false;
 
 
 })
