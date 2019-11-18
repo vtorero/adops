@@ -8,6 +8,8 @@ import { Chart } from 'chart.js';
 import 'rxjs/add/operator/map';
 import { Global } from './global';
 import { map } from 'rxjs/operators';
+import { Usuario } from './modelos/usuario';
+import { Usuarios } from './modelos/usuarios';
 
 @Injectable({
   providedIn: 'root'
@@ -41,6 +43,10 @@ getDatos(empresa:string) {
   ).pipe(map(result => result));
 }
 
+public getUsuarios():Observable<Usuarios[]> {
+  return  this._http.get<Usuarios[]>
+                  ('http://apiuser.azurewebsites.net/api/usuarios');
+}
 
 getPie(labels:any,datos:any,canvas:string,titulo:string){
 
