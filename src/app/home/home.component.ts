@@ -10,7 +10,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import "ng-pick-datetime/assets/style/picker.min.css";
 import {MatPaginatorModule, PageEvent, MatPaginator} from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
-import { Usuarios } from '../modelos/usuarios';
 import { MatSort } from '@angular/material/sort';
 
 
@@ -72,7 +71,12 @@ cargando:boolean=false;
 pageEvent: PageEvent;
 data:string= localStorage.getItem("data");
   window: any;
-  displayedColumns = ['Id', 'Nombre', 'Apellido', 'Nacionalidad', "Edad"];
+  columnad_exchange_estimated_revenue: number;
+  columnad_exchange_impressions: number;
+  dimensionad_exchange_creative_sizes: string;
+  dimensionad_exchange_date: string;
+  dimensionad_exchange_device_category:string;
+  displayedColumns = ['dimensionad_exchange_date','dimensionad_exchange_device_category', 'dimensionad_exchange_creative_sizes', 'columnad_exchange_estimated_revenue', "columnad_exchange_impressions"];
   dataSource: any;
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -98,7 +102,7 @@ renderDataTable() {
   this.dataSource.data = x; 
   this.dataSource.sort = this.sort;
   this.dataSource.paginator = this.paginator;
-  console.log(this.dataSource.data);
+  console.log(x);
 },  
 error => {  
   console.log('There was an error while retrieving Usuarios!' + error);  
@@ -119,8 +123,7 @@ error => {
     this.api.getDatos(emp)
         .subscribe(res => {
           let dataTable = res['creatives'];
-          console.log("",dataTable);
-
+          
 
       this.ingreso_cpm= res['ingreso'].map(res => res.ingreso_cpm);
       this.ingreso_total= res['ingreso'].map(res => res.ingreso_total);

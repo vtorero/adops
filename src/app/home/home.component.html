@@ -74,33 +74,33 @@
 <div class="example-container mat-elevation-z8">
   <mat-table [dataSource]="dataSource" matSort>
     <!--  Columna ID-->
-    <ng-container matColumnDef="Id">
+    <ng-container matColumnDef="dimensionad_exchange_date">
           <mat-header-cell *matHeaderCellDef mat-sort-header> Id</mat-header-cell>
-          <mat-cell *matCellDef="let row"> {{row.Id}} </mat-cell>
+          <mat-cell *matCellDef="let row"> {{row.dimensionad_exchange_date}} </mat-cell>
     </ng-container>
 
     <!-- Columna Apellido -->
-    <ng-container matColumnDef="Apellido">
+    <ng-container matColumnDef="dimensionad_exchange_device_category">
           <mat-header-cell *matHeaderCellDef mat-sort-header> Apellido</mat-header-cell>
-          <mat-cell *matCellDef="let row"> {{row.Apellido}} </mat-cell>
+          <mat-cell *matCellDef="let row"> {{row.dimensionad_exchange_device_category}} </mat-cell>
     </ng-container>
 
     <!-- Columna Nombre-->
-    <ng-container matColumnDef="Nombre">
+    <ng-container matColumnDef="dimensionad_exchange_creative_sizes">
           <mat-header-cell *matHeaderCellDef mat-sort-header> Nombre </mat-header-cell>
-  <mat-cell *matCellDef="let row"> {{row.Nombre}} </mat-cell>
+  <mat-cell *matCellDef="let row"> {{row.dimensionad_exchange_creative_sizes}} </mat-cell>
     </ng-container>
 
     <!-- Columna Nacionalidad -->
-    <ng-container matColumnDef="Nacionalidad">
+    <ng-container matColumnDef="columnad_exchange_estimated_revenue">
           <mat-header-cell *matHeaderCellDef mat-sort-header> Nacionalidad</mat-header-cell>
-          <mat-cell *matCellDef="let row"> {{row.Nacionalidad}} </mat-cell>
+          <mat-cell *matCellDef="let row"> {{row.columnad_exchange_estimated_revenue}} </mat-cell>
     </ng-container>
 
      <!-- Columna Edad -->
-     <ng-container matColumnDef="Edad">
+     <ng-container matColumnDef="columnad_exchange_impressions">
           <mat-header-cell *matHeaderCellDef mat-sort-header> Edad </mat-header-cell>
-          <mat-cell *matCellDef="let row"> {{row.Edad}} </mat-cell>
+          <mat-cell *matCellDef="let row"> {{row.columnad_exchange_impressions}} </mat-cell>
     </ng-container>
 
     <mat-header-row *matHeaderRowDef="displayedColumns" class="encabezado"></mat-header-row>

@@ -10,6 +10,8 @@ import { Global } from './global';
 import { map } from 'rxjs/operators';
 import { Usuario } from './modelos/usuario';
 import { Usuarios } from './modelos/usuarios';
+import { Impresiones } from './modelos/impresiones';
+import { ImplicitReceiver } from '@angular/compiler';
 
 @Injectable({
   providedIn: 'root'
@@ -43,9 +45,8 @@ getDatos(empresa:string) {
   ).pipe(map(result => result));
 }
 
-public getUsuarios():Observable<Usuarios[]> {
-  return  this._http.get<Usuarios[]>
-                  ('http://apiuser.azurewebsites.net/api/usuarios');
+public getUsuarios():Observable<Impresiones[]> {
+  return this._http.get<Impresiones[]>(Global.BASE_API_URL+'api.php/tabla');
 }
 
 getPie(labels:any,datos:any,canvas:string,titulo:string){
