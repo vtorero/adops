@@ -64,7 +64,7 @@ public getTablaConsultar(ini:string,fin:string,empresa:string):Observable<Impres
 getPie(labels:any,datos:any,canvas:string,titulo:string){
 
   return new Chart(canvas, {
-    type: 'bar',
+    type: 'doughnut',
     data: {
       labels: labels,
       datasets: [
