@@ -1,33 +1,83 @@
-<form role="form">
-  <div class="card-body">
-    <div class="form-group">
-      <label for="exampleInputEmail1">Email address</label>
-      <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
-    </div>
-    <div class="form-group">
-      <label for="exampleInputPassword1">Password</label>
-      <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
-    </div>
-    <div class="form-group">
-      <label for="exampleInputFile">File input</label>
-      <div class="input-group">
-        <div class="custom-file">
-          <input type="file" class="custom-file-input" id="exampleInputFile">
-          <label class="custom-file-label" for="exampleInputFile">Choose file</label>
-        </div>
-        <div class="input-group-append">
-          <span class="input-group-text" id="">Upload</span>
-        </div>
-      </div>
-    </div>
-    <div class="form-check">
-      <input type="checkbox" class="form-check-input" id="exampleCheck1">
-      <label class="form-check-label" for="exampleCheck1">Check me out</label>
-    </div>
-  </div>
-  <!-- /.card-body -->
+      
+           <mk-box header="Datos bancarios" [isCollapsable]="false" [isRemovable]="false">
+              <form>
+                <div class="col-md-6">
+                         <div class="form-group">
+              <label for="exampleInputEmail1">Entidad Bancaria</label>
+              <input type="text" class="form-control"  placeholder="Entidad Bancaria">
+            </div>
+            <div class="form-group">
+                <label for="exampleInputEmail1">Beneficiario Cta Bancaria</label>
+                <input class="form-control" type="text" placeholder="Beneficiario Cta Bancaria">
+              </div>
+              <div class="form-group">
+                  <label for="exampleInputEmail1">Persona que recibirá el detalle del pago </label>
+                  <input class="form-control" type="text" placeholder="Persona que recibirá el detalle del pago ">
+                </div>
+                  <div class="form-group">
+                      <label for="exampleInputEmail1">Domicilio Entidad Bancaria</label>
+                      <textarea class="form-control" rows="2" placeholder="Domicilio Entidad Bancaria"></textarea>
+                  </div>
+                  <div class="form-group">
+                      <label for="exampleInputEmail1">Ciudad</label>
+                      <input class="form-control" type="text" placeholder="Ciudad">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Sucursal</label>
+                        <input class="form-control" type="text" placeholder="Sucursal">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Tipo de cuenta y moneda</label>
+                        <input class="form-control" type="text" placeholder="Tipo de cuenta y moneda">
+                      </div>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Numero de Cuenta</label>
+                            <input class="form-control" type="text" placeholder="Numero de Cuenta">
+                          </div>
+                </div>
+      <div class="col-md-6">
+            
+                  <div class="form-group">
+                      <label for="exampleInputEmail1">ABA o Ruting</label>
+                      <input class="form-control" type="text" placeholder="ABA o Ruting">
+                  </div>
+                  <div class="form-group">
+                          <label for="exampleInputEmail1">Codigo Swift / Bank Swift Code</label>
+                          <input class="form-control" type="text" placeholder="Codigo Swift / Bank Swift Code">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Nombre y teléfono del contacto en el banco</label>
+                        <input class="form-control" type="text" placeholder="Nombre y teléfono del contacto en el banco">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Si existe banco intermediario para envío de transferenciass</label>
+                        <input class="form-control" type="text" placeholder="Si existe banco intermediario para envío de transferencias">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Nombre del banco intermediario</label>
+                        <input class="form-control" type="text" placeholder="Nombre del banco intermediario">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">ABA o Ruting del banco intermediario</label>
+                        <textarea class="form-control" rows="3" placeholder="ABA o Ruting del banco intermediario"></textarea>
+                    </div>
+                    <div class="form-check">
+                        <label class="form-check-label" for="exampleCheck1">Condición de pago / Agreed payment terms:45 días<br> 
+                            Moneda de Transacciones / Currency : US Dollar<br>
+                            Las facturas deberan llegar por e-mail a la siguiente dirección/
+                             All invoices should be sent to the following e-mail addresses: facturacion@adops.pe</label>
+                             <input type="checkbox" class="form-check-input" id="exampleCheck1"  value="1">
+                      </div>
+                
+                    
 
-  <div class="card-footer">
-    <button type="submit" class="btn btn-primary">Submit</button>
-  </div>
-</form>
+
+                </div>
+      <div class="col-md-12">
+          <div class="card-footer">
+              <button type="submit" class="btn btn-primary">Enviar</button>
+            </div>
+          </div>
+        </form>
+      </mk-box>
+      

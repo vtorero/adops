@@ -6,7 +6,7 @@ import { GeneralComponent } from './general/general.component';
 
 const routes: Routes = [
   {path:'pagos',
-data:{title:'form'},
+
   children: [
     {
       path: 'formulario',
@@ -15,7 +15,7 @@ data:{title:'form'},
   ]
   },
   {path:'general',
-  data:{title:'form'},
+  
     children: [
       {
         path: 'formulario',

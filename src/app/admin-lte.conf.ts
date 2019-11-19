@@ -9,14 +9,14 @@ export const adminLteConf = {
   // isSidebarRightOverContent: true,
   // layout: 'normal',
   sidebarLeftMenu: [
-    {label: 'MAIN NAVIGATION', separator: true},
+    {label: 'OPCIONES PRINCIPALES', separator: true},
     {label: 'Inicio', route: '/dash', iconClasses: 'fa fa-road', pullRights: [{text: 'New', classes: 'label pull-right bg-green'}]},
     {label: 'Configuración', iconClasses: 'fa fa-th-list', children: [
       {label: 'General', route: 'general/formulario'},  
       {label: 'Datos Bancarios', route: 'pagos/formulario'},
         
       ]},
-    {label: 'COMPONENTS', separator: true},
+    /*{label: 'COMPONENTS', separator: true},
     {label: 'Accordion', route: 'accordion', iconClasses: 'fa fa-tasks'},
     {label: 'Alert', route: 'alert', iconClasses: 'fa fa-exclamation-triangle'},
     {label: 'Boxs', iconClasses: 'fa fa-files-o', children: [
@@ -28,6 +28,5 @@ export const adminLteConf = {
     {label: 'Form', iconClasses: 'fa fa-files-o', children: [
         {label: 'Input Text', route: 'form/input-text'}
     ]},
-    {label: 'Tabs', route: 'tabs', iconClasses: 'fa fa-th'}
-  ]
+    {label: 'Tabs', route: 'tabs', iconClasses: 'fa fa-th'}*/  ]
 };

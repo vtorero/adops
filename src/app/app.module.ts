@@ -22,11 +22,12 @@ import { LoginComponent } from './login/login.component';
 import { MatNativeDateModule } from '@angular/material/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
-import {MatPaginatorModule} from '@angular/material/paginator';
+import {MatPaginatorModule, MatPaginatorIntl} from '@angular/material/paginator';
 import {MatTableModule} from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
 import { PagoComponent } from './pago/pago.component';
 import { GeneralComponent } from './general/general.component';
+import { PaginatorEspañol } from './modelos/paginator-espanol';
 
 
 @NgModule({
@@ -47,6 +48,9 @@ import { GeneralComponent } from './general/general.component';
     MatInputModule
   
   ],
+  providers:[{ provide: MatPaginatorIntl, useClass: PaginatorEspañol}]
+  ,
+
   declarations: [
     AppComponent,
     PagoComponent,
