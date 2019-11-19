@@ -170,7 +170,7 @@ error => {
           datasets: [
             {
               data: this.values,
-              borderColor: '#3cba9f',
+              //borderColor: '#3cba9f',
               fill: true,
               backgroundColor: [  
                 "#3cb371",  
@@ -196,6 +196,7 @@ error => {
         },
           legend: {
             display: true,
+            position:'bottom',
             labels: {
               fontColor: 'rgb(0,0,0)',
               boxWidth: 10,
@@ -209,12 +210,8 @@ error => {
         },
          
           scales: {
-            xAxes: [{
-              ticks:{beginAtZero:true}
-            }],
-            yAxes: [{
-              ticks:{beginAtZero:true}
-            }]
+            xAxes: [],
+            yAxes: []
           }
         }
       })
@@ -231,7 +228,7 @@ error => {
               fill: true,
               lineTension: 0,
               backgroundColor: "RGBA(0,233,168,0.3)",
-              borderColor: "#3cb371",
+              //borderColor: "#3cb371",
               borderCapStyle: 'butt',
               borderDash: [],
               borderDashOffset: 0.0,
@@ -250,11 +247,11 @@ error => {
               spanGaps: true,
             },
             {
-              label: "Mobil",
+              label: "Mobile",
               fill: true,
               lineTension: 0,
               backgroundColor: "RGBA(61,0,255,0.3)",
-              borderColor: "blue", // The main line color
+              //borderColor: "blue", // The main line color
               borderCapStyle: 'butt',
               borderDash: [], // try [5, 15] for instance
               borderDashOffset: 0.0,
@@ -277,7 +274,7 @@ error => {
               fill: true,
               lineTension: 0,
               backgroundColor: "RGBA(246,91,246,0.3)",
-              borderColor: "#F65BF6", // The main line color
+              //borderColor: "#F65BF6", // The main line color
               borderCapStyle: 'butt',
               borderDash: [], // try [5, 15] for instance
               borderDashOffset: 0.0,
@@ -305,7 +302,7 @@ error => {
           responsive: true,
           title:{
               display:true,
-              text:'Ingreso por día'
+              text:'Ingresos por día'
           },
           tooltips: {
               mode: 'index',
@@ -318,14 +315,15 @@ error => {
           scales: {
             yAxes: [{
                 ticks: {
-                    beginAtZero:true
+                    //beginAtZero:true
                 },
                 scaleLabel: {
                      display: true,
-                     labelString: 'Dolares',
-                     fontSize: 20 
+                     labelString: 'Ingresos (USD)',
+                     fontSize: 14 
                   }
-            }]            
+            }],
+                        
         }  
       }
       })
