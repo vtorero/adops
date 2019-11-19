@@ -10,14 +10,11 @@ export const adminLteConf = {
   // layout: 'normal',
   sidebarLeftMenu: [
     {label: 'MAIN NAVIGATION', separator: true},
-    {label: 'Inicio', route: '/', iconClasses: 'fa fa-road', pullRights: [{text: 'New', classes: 'label pull-right bg-green'}]},
-    {label: 'Información', iconClasses: 'fa fa-th-list', children: [
-        {label: 'Pago', route: 'layout/configuration'},
-        {label: 'Custom', route: 'layout/custom'},
-        {label: 'Header', route: 'layout/header'},
-        {label: 'Sidebar Left', route: 'layout/sidebar-left'},
-        {label: 'Sidebar Right', route: 'layout/sidebar-right'},
-        {label: 'Content', route: 'layout/content'}
+    {label: 'Inicio', route: '/dash', iconClasses: 'fa fa-road', pullRights: [{text: 'New', classes: 'label pull-right bg-green'}]},
+    {label: 'Configuración', iconClasses: 'fa fa-th-list', children: [
+      {label: 'General', route: 'general/formulario'},  
+      {label: 'Datos Bancarios', route: 'pagos/formulario'},
+        
       ]},
     {label: 'COMPONENTS', separator: true},
     {label: 'Accordion', route: 'accordion', iconClasses: 'fa fa-tasks'},

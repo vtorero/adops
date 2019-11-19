@@ -75,37 +75,37 @@
   <mat-table [dataSource]="dataSource" matSort>
     <!--  Columna ID-->
     <ng-container matColumnDef="dimensionad_exchange_date">
-          <mat-header-cell *matHeaderCellDef mat-sort-header> Id</mat-header-cell>
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Fecha</mat-header-cell>
           <mat-cell *matCellDef="let row"> {{row.dimensionad_exchange_date}} </mat-cell>
     </ng-container>
 
     <!-- Columna Apellido -->
     <ng-container matColumnDef="dimensionad_exchange_device_category">
-          <mat-header-cell *matHeaderCellDef mat-sort-header> Apellido</mat-header-cell>
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Dispositivo</mat-header-cell>
           <mat-cell *matCellDef="let row"> {{row.dimensionad_exchange_device_category}} </mat-cell>
     </ng-container>
 
     <!-- Columna Nombre-->
     <ng-container matColumnDef="dimensionad_exchange_creative_sizes">
-          <mat-header-cell *matHeaderCellDef mat-sort-header> Nombre </mat-header-cell>
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Tamaño</mat-header-cell>
   <mat-cell *matCellDef="let row"> {{row.dimensionad_exchange_creative_sizes}} </mat-cell>
     </ng-container>
 
     <!-- Columna Nacionalidad -->
     <ng-container matColumnDef="columnad_exchange_estimated_revenue">
-          <mat-header-cell *matHeaderCellDef mat-sort-header> Nacionalidad</mat-header-cell>
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Ingreso $</mat-header-cell>
           <mat-cell *matCellDef="let row"> {{row.columnad_exchange_estimated_revenue}} </mat-cell>
     </ng-container>
 
      <!-- Columna Edad -->
      <ng-container matColumnDef="columnad_exchange_impressions">
-          <mat-header-cell *matHeaderCellDef mat-sort-header> Edad </mat-header-cell>
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Impresiones </mat-header-cell>
           <mat-cell *matCellDef="let row"> {{row.columnad_exchange_impressions}} </mat-cell>
     </ng-container>
 
     <mat-header-row *matHeaderRowDef="displayedColumns" class="encabezado"></mat-header-row>
     <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
 </mat-table>
-<mat-paginator [pageSizeOptions]="[5, 10, 25, 50, 100]" [pageSize]="25" [showFirstLastButtons]></mat-paginator>
+<mat-paginator [pageSizeOptions]="[5, 10, 25, 50, 100]" [pageSize]="10" [showFirstLastButtons]></mat-paginator>
 </div>
 </mk-box>

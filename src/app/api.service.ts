@@ -45,9 +45,21 @@ getDatos(empresa:string) {
   ).pipe(map(result => result));
 }
 
-public getUsuarios():Observable<Impresiones[]> {
-  return this._http.get<Impresiones[]>(Global.BASE_API_URL+'api.php/tabla');
+public getTablaInicial(empresa:string):Observable<Impresiones[]> {
+  return this._http.post<Impresiones[]>(Global.BASE_API_URL+'api.php/tabla',{
+    emp:empresa
+},{ headers: this.headers }).pipe(map(result => result));
 }
+
+
+public getTablaConsultar(ini:string,fin:string,empresa:string):Observable<Impresiones[]> {
+  return this._http.post<Impresiones[]>(Global.BASE_API_URL+'api.php/tablaconsulta',{
+    ini:ini,
+    fin:fin,
+    emp:empresa
+},{ headers: this.headers }).pipe(map(result => result));
+}
+
 
 getPie(labels:any,datos:any,canvas:string,titulo:string){
 

@@ -95,7 +95,25 @@ data:string= localStorage.getItem("data");
 }
 
 renderDataTable() {  
-  this.api.getUsuarios()  
+  let emp=localStorage.getItem("currentEmpresa");
+  console.log(emp);
+  this.api.getTablaInicial(emp)  
+    .subscribe(  
+        x => {  
+  this.dataSource = new MatTableDataSource();  
+  this.dataSource.data = x; 
+  this.dataSource.sort = this.sort;
+  this.dataSource.paginator = this.paginator;
+  console.log(x);
+},  
+error => {  
+  console.log('There was an error while retrieving Usuarios!' + error);  
+});  
+} 
+
+renderDataTableConsulta(inicio:string,final:string,emp:string) { 
+  this.dataSource=[];
+  this.api.getTablaConsultar(inicio,final,emp)
     .subscribe(  
         x => {  
   this.dataSource = new MatTableDataSource();  
@@ -111,20 +129,15 @@ error => {
   
   ngOnInit() {
     this.renderDataTable();
-
     if(this._login.getCurrentUser==false){
       this.router.navigate(['']);
-
-      
-    }
+      }
 
     this.cargando=true;
     let emp=localStorage.getItem("currentEmpresa")
     this.api.getDatos(emp)
         .subscribe(res => {
-          let dataTable = res['creatives'];
-          
-
+          let dataTable = res['creatives'];   
       this.ingreso_cpm= res['ingreso'].map(res => res.ingreso_cpm);
       this.ingreso_total= res['ingreso'].map(res => res.ingreso_total);
       this.impresiones= res['ingreso'].map(res => res.impresiones);
@@ -332,11 +345,13 @@ enviaFechas(){
 this.labels=[];
 this.values=[];
 var empresa = localStorage.getItem("currentEmpresa");
-console.log("empresa",empresa);
-
 var fec1 = this.selectedMoment.toDateString().split(" ",4); 
 var fec2 = this.selectedMoment2.toDateString().split(" ",4); 
-this.loadDatos(fec1[1]+fec1[2]+fec1[3],fec2[1]+fec2[2]+fec2[3],empresa);
+let ini=fec1[1]+fec1[2]+fec1[3];
+let fin=fec2[1]+fec2[2]+fec2[3];
+
+this.loadDatos(ini,fin,empresa);
+this.renderDataTableConsulta(ini,fin,empresa);
 
   }
 
@@ -540,7 +555,6 @@ resetChart(){
 var pieChartContent = document.getElementById('pieChartContent');
 pieChartContent.innerHTML = '&nbsp;';
 pieChartContent.innerHTML='<canvas id="canvas"><canvas>';
-
 var barChartContent = document.getElementById('barChartContent');
 barChartContent.innerHTML = '&nbsp;';
 barChartContent.innerHTML='<canvas id="canvas2"><canvas>';

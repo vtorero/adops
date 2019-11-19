@@ -21,13 +21,14 @@ table{width: 100%;}
   }
 
   .mat-row:nth-child(even){
-    background-color:rgb(195, 210, 241)
+    background-color:rgb(213, 224, 247)
   }
 
 .mat-row:nth-child(odd){
-    background-color:rgb(247, 241, 241)
+    background-color:rgb(245, 237, 237)
 }
 
 .encabezado{
-      background-color: lightblue;
+      background-color: rgb(124, 153, 248);
+      font-size: 18px;
 }

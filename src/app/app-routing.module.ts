@@ -1,10 +1,28 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-
 import { HomeComponent } from './home/home.component';
-import {LoginComponent} from  './+login/login.component';
+import { PagoComponent } from './pago/pago.component';
+import { GeneralComponent } from './general/general.component';
 
 const routes: Routes = [
+  {path:'pagos',
+data:{title:'form'},
+  children: [
+    {
+      path: 'formulario',
+      component: PagoComponent
+    }
+  ]
+  },
+  {path:'general',
+  data:{title:'form'},
+    children: [
+      {
+        path: 'formulario',
+        component: GeneralComponent
+      }
+    ]
+    },
   {
   path: 'dash',
   data: {
@@ -133,6 +151,13 @@ const routes: Routes = [
   }, {
     path: 'register',
     loadChildren: './+register/register.module#RegisterModule',
+    data: {
+      customLayout: true
+    }
+  },
+  {
+    path: 'pagos',
+    loadChildren: './pago/pago.module#PagoModule',
     data: {
       customLayout: true
     }

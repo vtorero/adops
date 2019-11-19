@@ -25,6 +25,8 @@ import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatTableModule} from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
+import { PagoComponent } from './pago/pago.component';
+import { GeneralComponent } from './general/general.component';
 
 
 @NgModule({
@@ -47,8 +49,10 @@ import { MatSortModule } from '@angular/material/sort';
   ],
   declarations: [
     AppComponent,
+    PagoComponent,
     HomeComponent,
-    LoginComponent
+    LoginComponent,
+    GeneralComponent
       ],
   bootstrap: [AppComponent]
 })
