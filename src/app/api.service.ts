@@ -72,14 +72,14 @@ getPie(labels:any,datos:any,canvas:string,titulo:string){
           fill: true,
           lineTension: 0,
           //backgroundColor: "RGBA(0,233,168,0.3)",
-          borderColor: "#3cb371",
+          //borderColor: "#3cb371",
           borderCapStyle: 'butt',
           borderDash: [],
           borderDashOffset: 0.0,
           borderJoinStyle: 'miter',
           pointBorderColor: "3cb371",
           pointBackgroundColor: "3cb371",
-          pointBorderWidth: 1,
+          pointBorderWidth: 0,
           pointHoverRadius: 8,
           pointHoverBackgroundColor: "#3cb371",
           pointHoverBorderColor: "3cb371",
@@ -109,13 +109,14 @@ getPie(labels:any,datos:any,canvas:string,titulo:string){
     },
     options: {
       legend: {
-        display: false,
+        display: true,
+        position:'bottom',
         },
       responsive: true,
       title:{
-          display:false,
+          display:true,
           text:titulo,
-          fontSize:17
+          fontSize:14
       },
       tooltips: {
           mode: 'index',
@@ -125,20 +126,14 @@ getPie(labels:any,datos:any,canvas:string,titulo:string){
           mode: 'nearest',
           intersect: true
       },
-      scales: {
-        yAxes: [{
-            ticks: {
-                beginAtZero:false
-            },
-            scaleLabel: {
-                 display: true,
-                 labelString: 'Dolares',
-                 fontSize: 25 
-              }
-        }]            
+        
+        scales: {
+          xAxes: [],
+          yAxes: []
+        }          
     }  
   }
-  })
+  )
 
 }
   

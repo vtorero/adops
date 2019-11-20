@@ -11,6 +11,7 @@ import "ng-pick-datetime/assets/style/picker.min.css";
 import {MatPaginatorModule, PageEvent, MatPaginator} from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
+import { DecimalPipe } from '@angular/common';
 
 
 
@@ -66,7 +67,7 @@ creat_total=[];
 ingreso_cpm:number;
 ingreso_total:number;
 impresiones:number;
-datatable=[]
+datatable=[];
 cargando:boolean=false;
 pageEvent: PageEvent;
 data:string= localStorage.getItem("data");
@@ -80,6 +81,10 @@ data:string= localStorage.getItem("data");
   dataSource: any;
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
+  fec1= this.selectedMoment.toDateString().split(" ",4); 
+  fec2 = this.selectedMoment2.toDateString().split(" ",4); 
+  fecha1:string=this.fec1[2]+'-'+this.fec1[1]+'-'+this.fec1[3];
+  fecha2:string=this.fec2[2]+'-'+this.fec2[1]+'-'+this.fec2[3];
 
  
   
@@ -96,15 +101,13 @@ data:string= localStorage.getItem("data");
 
 renderDataTable() {  
   let emp=localStorage.getItem("currentEmpresa");
-  console.log(emp);
   this.api.getTablaInicial(emp)  
     .subscribe(  
         x => {  
   this.dataSource = new MatTableDataSource();  
   this.dataSource.data = x; 
   this.dataSource.sort = this.sort;
-  this.dataSource.paginator = this.paginator;
-  console.log(x);
+  this.dataSource.paginator = this.paginator;  
 },  
 error => {  
   console.log('There was an error while retrieving Usuarios!' + error);  
@@ -137,7 +140,7 @@ error => {
     let emp=localStorage.getItem("currentEmpresa")
     this.api.getDatos(emp)
         .subscribe(res => {
-          let dataTable = res['creatives'];   
+         
       this.ingreso_cpm= res['ingreso'].map(res => res.ingreso_cpm);
       this.ingreso_total= res['ingreso'].map(res => res.ingreso_total);
       this.impresiones= res['ingreso'].map(res => res.impresiones);
@@ -160,8 +163,9 @@ error => {
 
       creative_sizes.forEach((res)=>{this.creat_dias.push(res)})
       creative_total.forEach((res)=>{this.creat_total.push(res)})
+      console.log(res);
 
-      var otro= this.api.getPie(this.creat_dias,this.creat_total,'canvas4','Ingreso por creatividad');
+      var otro=this.api.getPie(this.creat_dias,this.creat_total,'canvas4','Ingreso por tamaño de creatividad');
 
       var piechar = new Chart('canvas', {
         type: 'doughnut',
@@ -206,7 +210,8 @@ error => {
           title: {
             display: true,
             text: 'Ingresos por dispositivo',
-            position:'top'
+            position:'top',
+            fontSize:14
         },
          
           scales: {
@@ -302,7 +307,8 @@ error => {
           responsive: true,
           title:{
               display:true,
-              text:'Ingresos por día'
+              text:'Ingresos por día',
+              fontSize:15
           },
           tooltips: {
               mode: 'index',
@@ -313,6 +319,7 @@ error => {
               intersect: true
           },
           scales: {
+            xAxes: [],
             yAxes: [{
                 ticks: {
                     //beginAtZero:true
@@ -320,7 +327,7 @@ error => {
                 scaleLabel: {
                      display: true,
                      labelString: 'Ingresos (USD)',
-                     fontSize: 14 
+                     fontSize: 12 
                   }
             }],
                         
@@ -347,6 +354,9 @@ var fec1 = this.selectedMoment.toDateString().split(" ",4);
 var fec2 = this.selectedMoment2.toDateString().split(" ",4); 
 let ini=fec1[1]+fec1[2]+fec1[3];
 let fin=fec2[1]+fec2[2]+fec2[3];
+
+this.fecha1=fec1[2]+'-'+fec1[1]+'-'+fec1[3];;
+this.fecha2=fec2[2]+'-'+fec2[1]+'-'+fec2[3];;
 
 this.loadDatos(ini,fin,empresa);
 this.renderDataTableConsulta(ini,fin,empresa);

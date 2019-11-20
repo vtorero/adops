@@ -155,13 +155,6 @@ const routes: Routes = [
       customLayout: true
     }
   },
-  {
-    path: 'pagos',
-    loadChildren: './pago/pago.module#PagoModule',
-    data: {
-      customLayout: true
-    }
-  },
 ];
 
 @NgModule({

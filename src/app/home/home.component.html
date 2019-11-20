@@ -3,12 +3,12 @@
 <label>
     Inicio:
     <input class="form-control" [owlDateTimeTrigger]="dt" [owlDateTime]="dt" [(ngModel)]="selectedMoment">
-    <owl-date-time #dt></owl-date-time>
+    <owl-date-time [pickerType]="'calendar'" #dt></owl-date-time>
 </label>
 <label>
     Fin:
     <input class="form-control"  [owlDateTimeTrigger]="dt2" [owlDateTime]="dt2" [(ngModel)]="selectedMoment2">
-    <owl-date-time #dt2></owl-date-time>
+    <owl-date-time [pickerType]="'calendar'" #dt2></owl-date-time>
 </label>
     <div class="box-footer">
         <button type="submit" (click)="enviaFechas()" class="btn btn-primary">Consultar</button>
@@ -27,15 +27,16 @@
   </div>
   <div class="col-md-3 col-xs-12">
     <mk-box-info header="Impresiones" iconBackgroundColor="yellow" iconStyleClass="fa fa-flag-o">
-     {{impresiones}}
+     {{ impresiones}}
     </mk-box-info>
   </div>
   <div class="col-md-3 col-xs-12">
-    <mk-box-info header="Periodo" iconBackgroundColor="red" iconStyleClass="fa fa-star-o">
-     
+    <mk-box-info header="Periodo" iconBackgroundColor="red" iconStyleClass="fa fa-calendar-check-o">
+     {{fecha1}} / {{fecha2}}
     </mk-box-info>
   </div>
 </div>
+
 <mk-box header="Principales resultados" [isCollapsable]="true" [isRemovable]="false">
 <div class="row">
 <div class="col-md-6 col-xs-12">
@@ -53,13 +54,14 @@
 
 </div>
 </mk-box>
-<mk-box header="Ingreso por creatividad" [isCollapsable]="true" [isRemovable]="false">
+<mk-box header="Ingreso por día" [isCollapsable]="true" [isRemovable]="false">
   <div class="col-md-12 col-xs-12">
     <div class="chart-container">   
       <div id="barChartContent"><canvas id="canvas2"></canvas></div>
     </div> 
   </div>
 </mk-box>
+
 <mk-box header="Data consultada" [isCollapsable]="true" [isRemovable]="false">
   <div class="example-header mat-elevation-z8">
     <mat-form-field>
