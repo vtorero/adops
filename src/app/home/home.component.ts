@@ -25,13 +25,6 @@ export const MY_MOMENT_FORMATS = {
   monthYearA11yLabel: 'MM YYYY',
 };
 
-export interface PeriodicElement {
-  name: string;
-  position: number;
-  weight: number;
-  symbol: string;
-}
-
 
 @Component({
   selector: 'app-home',
@@ -45,10 +38,7 @@ export interface PeriodicElement {
   providers:[{provide: OWL_DATE_TIME_FORMATS, useValue: MY_MOMENT_FORMATS},]
 })
 
-
 export class HomeComponent{
-
-
 public selectedMoment = new Date();
 public selectedMoment2 = new Date();
 datos:Datos;
@@ -59,7 +49,7 @@ labels=[];
 line=[];
 values=[];
 labeldias=[];
-dias_value=[]
+dias_value_desk=[]
 dias_value_movil=[];
 dias_value_tablet=[];
 creat_dias=[];
@@ -77,10 +67,11 @@ data:string= localStorage.getItem("data");
   dimensionad_exchange_creative_sizes: string;
   dimensionad_exchange_date: string;
   dimensionad_exchange_device_category:string;
-  displayedColumns = ['dimensionad_exchange_date','dimensionad_exchange_device_category', 'dimensionad_exchange_creative_sizes', 'columnad_exchange_estimated_revenue', "columnad_exchange_impressions"];
+  displayedColumns = ['dimensionad_exchange_date','columnad_exchange_ad_ecpm', 'columnad_exchange_estimated_revenue', "columnad_exchange_impressions"];
   dataSource: any;
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
+
   fec1= this.selectedMoment.toDateString().split(" ",4); 
   fec2 = this.selectedMoment2.toDateString().split(" ",4); 
   fecha1:string=this.fec1[2]+'-'+this.fec1[1]+'-'+this.fec1[3];
@@ -90,43 +81,41 @@ data:string= localStorage.getItem("data");
   
   constructor(private api:ApiService,private _login:LoginService,private router:Router,dateTimeAdapter: DateTimeAdapter<any>){
     dateTimeAdapter.setLocale('es-PE');
-
   }
 
   applyFilter(filterValue: string) {
-    filterValue = filterValue.trim(); // Remove whitespace
-    filterValue = filterValue.toLowerCase(); // Datasource defaults to lowercase matches
+    filterValue = filterValue.trim(); 
+    filterValue = filterValue.toLowerCase(); 
     this.dataSource.filter = filterValue;
 }
 
 renderDataTable() {  
+  
   let emp=localStorage.getItem("currentEmpresa");
-  this.api.getTablaInicial(emp)  
-    .subscribe(  
-        x => {  
-  this.dataSource = new MatTableDataSource();  
+  this.api.getTablaInicial(emp).subscribe(x => {  
+  this.dataSource = new MatTableDataSource();
+  console.log("tabla",x);  
   this.dataSource.data = x; 
   this.dataSource.sort = this.sort;
   this.dataSource.paginator = this.paginator;  
 },  
 error => {  
-  console.log('There was an error while retrieving Usuarios!' + error);  
+  console.log('Error de conexion de datatable!' + error);  
 });  
 } 
 
 renderDataTableConsulta(inicio:string,final:string,emp:string) { 
   this.dataSource=[];
-  this.api.getTablaConsultar(inicio,final,emp)
-    .subscribe(  
-        x => {  
+  this.api.getTablaConsultar(inicio,final,emp).subscribe( x => {  
+  console.log("tablac",x);
   this.dataSource = new MatTableDataSource();  
   this.dataSource.data = x; 
   this.dataSource.sort = this.sort;
   this.dataSource.paginator = this.paginator;
-  console.log(x);
+  
 },  
 error => {  
-  console.log('There was an error while retrieving Usuarios!' + error);  
+  console.log('Error de conexion de datatable!!' + error);  
 });  
 } 
   
@@ -157,13 +146,13 @@ error => {
       alldates.forEach((res) =>{this.values.push(res)});
 
       dias_val.forEach((res)=>{this.labeldias.push(res)})
-      dias_valdesc.forEach((res)=>{this.dias_value.push(res)})
+      dias_valdesc.forEach((res)=>{this.dias_value_desk.push(res)})
       dias_valmovil.forEach((res)=>{this.dias_value_movil.push(res)})
       dias_valtablet.forEach((res)=>{this.dias_value_tablet.push(res)})
 
       creative_sizes.forEach((res)=>{this.creat_dias.push(res)})
       creative_total.forEach((res)=>{this.creat_total.push(res)})
-      console.log(res);
+      
 
       var otro=this.api.getPie(this.creat_dias,this.creat_total,'canvas4','Ingreso por tamaño de creatividad');
 
@@ -221,9 +210,7 @@ error => {
         }
       })
   
- 
-  
-      this.barchar = new Chart('canvas2', {
+       this.barchar = new Chart('canvas2', {
         type: 'line',
         data: {
           labels: this.labeldias,
@@ -248,7 +235,7 @@ error => {
               pointRadius: 4,
               pointHitRadius: 10,
               // notice the gap in the data and the spanGaps: true
-              data: this.dias_value,
+              data: this.dias_value_desk,
               spanGaps: true,
             },
             {
@@ -370,14 +357,17 @@ loadDatos(inicio:string,final:string,empresa:string){
       this.labels=[];
       this.values=[];
       this.labeldias=[];
-      this.dias_value=[];
+      this.dias_value_desk=[];
       this.dias_value_movil=[];
       this.dias_value_tablet=[];
+      this.creat_dias=[];
+      this.creat_total=[];
       this.resetChart();
       this.cargando=true;
 
       this.api.getReportes(inicio,final,empresa)
       .subscribe(res => {
+        console.log("ingreso",res);
         this.ingreso_cpm= res['ingreso'].map(res => res.ingreso_cpm);
         this.ingreso_total= res['ingreso'].map(res => res.ingreso_total);
         this.impresiones= res['ingreso'].map(res => res.impresiones);
@@ -385,22 +375,29 @@ loadDatos(inicio:string,final:string,empresa:string){
         let  alllabels = res['data'].map(res => res.dimensionad_exchange_device_category)
 
         let dias = res['diario_desktop'].map(res=>res.dimensionad_exchange_date)
-        let dias_val =res['diario_desktop'].map(res=>res.total)
+        let dias_valdesck =res['diario_desktop'].map(res=>res.total)
         let dias_valmovil =res['diario_movil'].map(res=>res.total)
         let dias_valtablet =res['diario_tablet'].map(res=>res.total)
+
+        let creative_sizes = res['creatives'].map(res=>res.dimensionad_exchange_creative_sizes);
+        let creative_total = res['creatives'].map(res=>res.total);
     
+        creative_sizes.forEach((res)=>{this.creat_dias.push(res)})
+        creative_total.forEach((res)=>{this.creat_total.push(res)})
+
         alllabels.forEach((res)=>{this.labels.push(res)});
         alldates.forEach((res) =>{this.values.push(res)});
   
         dias.forEach((res)=>{this.labeldias.push(res)})
-        dias_val.forEach((res)=>{this.dias_value.push(res)})
+        dias_valdesck.forEach((res)=>{this.dias_value_desk.push(res)})
         dias_valmovil.forEach((res)=>{this.dias_value_movil.push(res)})
         dias_valtablet.forEach((res)=>{this.dias_value_tablet.push(res)})
   
   if(this.window != undefined)
   this.window.destroy();
   this.window = new Chart(this.piechar, {});
-  
+
+  var otro=this.api.getPie(this.creat_dias,this.creat_total,'canvas4','Ingreso por tamaño de creatividad');
   var piechar = new Chart('canvas', {
     type: 'doughnut',
     data: {
@@ -408,7 +405,7 @@ loadDatos(inicio:string,final:string,empresa:string){
       datasets: [
         {
           data: this.values,
-          borderColor: '#3cba9f',
+          //borderColor: '#3cba9f',
           fill: true,
           backgroundColor: [  
             "#3cb371",  
@@ -426,22 +423,36 @@ loadDatos(inicio:string,final:string,empresa:string){
         }
       
       ],
-   
+
     },
     options: {
+      pieceLabel: {
+        fontColor: '#000'
+    },
       legend: {
-        display: true
-      },
+        display: true,
+        position:'bottom',
+        labels: {
+          fontColor: 'rgb(0,0,0)',
+          boxWidth: 10,
+          padding: 20
+      }
+    },
+      title: {
+        display: true,
+        text: 'Ingresos por dispositivo',
+        position:'top',
+        fontSize:14
+    },
+     
       scales: {
-        xAxes: [{
-          display: true
-        }],
-        yAxes: [{
-          display: true
-        }]
+        xAxes: [],
+        yAxes: []
       }
     }
   })
+
+  
 
 
   this.barchar = new Chart('canvas2', {
@@ -469,7 +480,7 @@ loadDatos(inicio:string,final:string,empresa:string){
           pointRadius: 4,
           pointHitRadius: 10,
           // notice the gap in the data and the spanGaps: true
-          data: this.dias_value,
+          data: this.dias_value_desk,
           spanGaps: true,
         },
         {
@@ -528,7 +539,8 @@ loadDatos(inicio:string,final:string,empresa:string){
       responsive: true,
       title:{
           display:true,
-          text:'Ingreso por día'
+          text:'Ingresos por día',
+          fontSize:14
       },
       tooltips: {
           mode: 'index',
@@ -545,7 +557,7 @@ loadDatos(inicio:string,final:string,empresa:string){
             },
             scaleLabel: {
                  display: true,
-                 labelString: 'Dolares',
+                 labelString: 'Ingresos (USD)',
                  fontSize: 20 
               }
         }]            
@@ -563,9 +575,12 @@ resetChart(){
 var pieChartContent = document.getElementById('pieChartContent');
 pieChartContent.innerHTML = '&nbsp;';
 pieChartContent.innerHTML='<canvas id="canvas"><canvas>';
-var barChartContent = document.getElementById('barChartContent');
+var barChartContent = document.getElementById('barChartContent2');
 barChartContent.innerHTML = '&nbsp;';
 barChartContent.innerHTML='<canvas id="canvas2"><canvas>';
+var barChartContent4 = document.getElementById('barChartContent4');
+barChartContent4.innerHTML = '&nbsp;';
+barChartContent4.innerHTML='<canvas id="canvas4"><canvas>';
 }
 
 }

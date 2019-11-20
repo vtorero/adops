@@ -3,15 +3,11 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import 'rxjs/add/operator/map';
 import {Observable} from 'rxjs/Observable';
 import { Chart } from 'chart.js';  
-
-
 import 'rxjs/add/operator/map';
 import { Global } from './global';
 import { map } from 'rxjs/operators';
-import { Usuario } from './modelos/usuario';
-import { Usuarios } from './modelos/usuarios';
 import { Impresiones } from './modelos/impresiones';
-import { ImplicitReceiver } from '@angular/compiler';
+
 
 @Injectable({
   providedIn: 'root'

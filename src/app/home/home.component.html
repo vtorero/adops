@@ -37,17 +37,19 @@
   </div>
 </div>
 
-<mk-box header="Principales resultados" [isCollapsable]="true" [isRemovable]="false">
+<mk-box [isCollapsable]="true" [isRemovable]="false">
 <div class="row">
 <div class="col-md-6 col-xs-12">
-  <div class="chart-container">    
+  <div class="chart-container">   
+      <mk-box>
         <div id="pieChartContent"><canvas id="canvas"></canvas></div>
+      </mk-box> 
        <div *ngIf="cargando" style="margin-left: 120px;"><img src="assets/img/load.gif"></div>
   </div> 
 </div>
 <div class="col-md-6 col-xs-12">
   <div class="chart-container">    
-    <div id="barChartContent"><canvas id="canvas4"></canvas></div>
+      <mk-box><div id="barChartContent4"><canvas id="canvas4"></canvas></div></mk-box>
     <div *ngIf="cargando" style="margin-left: 120px"><img src="assets/img/load.gif"></div>
   </div> 
 </div>
@@ -57,7 +59,7 @@
 <mk-box header="Ingreso por día" [isCollapsable]="true" [isRemovable]="false">
   <div class="col-md-12 col-xs-12">
     <div class="chart-container">   
-      <div id="barChartContent"><canvas id="canvas2"></canvas></div>
+      <div id="barChartContent2"><canvas id="canvas2"></canvas></div>
     </div> 
   </div>
 </mk-box>
@@ -77,31 +79,24 @@
   <mat-table [dataSource]="dataSource" matSort>
     <!--  Columna ID-->
     <ng-container matColumnDef="dimensionad_exchange_date">
-          <mat-header-cell *matHeaderCellDef mat-sort-header> Fecha</mat-header-cell>
+          <mat-header-cell *matHeaderCellDef mat-sort-header><span class="titulotabla">Fecha</span></mat-header-cell>
           <mat-cell *matCellDef="let row"> {{row.dimensionad_exchange_date}} </mat-cell>
     </ng-container>
-
-    <!-- Columna Apellido -->
-    <ng-container matColumnDef="dimensionad_exchange_device_category">
-          <mat-header-cell *matHeaderCellDef mat-sort-header> Dispositivo</mat-header-cell>
-          <mat-cell *matCellDef="let row"> {{row.dimensionad_exchange_device_category}} </mat-cell>
+   <!-- Columna Apellido -->
+    <ng-container matColumnDef="columnad_exchange_ad_ecpm">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> <span class="titulotabla">CPM</span></mat-header-cell>
+          <mat-cell *matCellDef="let row"> {{row.columnad_exchange_ad_ecpm}} </mat-cell>
     </ng-container>
 
-    <!-- Columna Nombre-->
-    <ng-container matColumnDef="dimensionad_exchange_creative_sizes">
-          <mat-header-cell *matHeaderCellDef mat-sort-header> Tamaño</mat-header-cell>
-  <mat-cell *matCellDef="let row"> {{row.dimensionad_exchange_creative_sizes}} </mat-cell>
-    </ng-container>
-
-    <!-- Columna Nacionalidad -->
+      <!-- Columna Nacionalidad -->
     <ng-container matColumnDef="columnad_exchange_estimated_revenue">
-          <mat-header-cell *matHeaderCellDef mat-sort-header> Ingreso $</mat-header-cell>
+          <mat-header-cell *matHeaderCellDef mat-sort-header><span class="titulotabla">Ingresos (USD)</span></mat-header-cell>
           <mat-cell *matCellDef="let row"> {{row.columnad_exchange_estimated_revenue}} </mat-cell>
     </ng-container>
 
      <!-- Columna Edad -->
      <ng-container matColumnDef="columnad_exchange_impressions">
-          <mat-header-cell *matHeaderCellDef mat-sort-header> Impresiones </mat-header-cell>
+          <mat-header-cell *matHeaderCellDef mat-sort-header> <span class="titulotabla">Impresiones</span></mat-header-cell>
           <mat-cell *matCellDef="let row"> {{row.columnad_exchange_impressions}} </mat-cell>
     </ng-container>
 
