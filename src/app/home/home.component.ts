@@ -155,7 +155,7 @@ error => {
       var otro=this.api.getPie(this.creat_dias,this.creat_total,'canvas4','Ingresos por tamaño de creatividad');
 
       var piechar = new Chart('canvas', {
-        type: 'doughnut',
+        type: 'pie',
         data: {
           labels: this.labels,
           datasets: [
