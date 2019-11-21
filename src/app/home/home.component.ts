@@ -11,7 +11,6 @@ import "ng-pick-datetime/assets/style/picker.min.css";
 import {MatPaginatorModule, PageEvent, MatPaginator} from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
-import { DecimalPipe } from '@angular/common';
 
 
 
@@ -39,6 +38,7 @@ export const MY_MOMENT_FORMATS = {
 })
 
 export class HomeComponent{
+
 public selectedMoment = new Date();
 public selectedMoment2 = new Date();
 datos:Datos;
@@ -58,6 +58,7 @@ ingreso_cpm:number;
 ingreso_total:number;
 impresiones:number;
 datatable=[];
+startDate:Date = new Date();
 cargando:boolean=false;
 pageEvent: PageEvent;
 data:string= localStorage.getItem("data");
@@ -67,7 +68,7 @@ data:string= localStorage.getItem("data");
   dimensionad_exchange_creative_sizes: string;
   dimensionad_exchange_date: string;
   dimensionad_exchange_device_category:string;
-  displayedColumns = ['dimensionad_exchange_date','columnad_exchange_ad_ecpm', 'columnad_exchange_estimated_revenue', "columnad_exchange_impressions"];
+  displayedColumns = ['dimensionad_exchange_date','columnad_exchange_estimated_revenue','columnad_exchange_impressions','columnad_exchange_ad_ecpm'];
   dataSource: any;
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
