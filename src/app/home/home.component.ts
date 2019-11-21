@@ -127,13 +127,14 @@ error => {
     let emp=localStorage.getItem("currentEmpresa")
     this.api.getDatos(emp)
         .subscribe(res => {
+          console.log(res);
          
       this.ingreso_cpm= res['ingreso'].map(res => res.ingreso_cpm);
       this.ingreso_total= res['ingreso'].map(res => res.ingreso_total);
       this.impresiones= res['ingreso'].map(res => res.impresiones);
       let alldates = res['data'].map(res => res.total)
       let  alllabels = res['data'].map(res => res.dimensionad_exchange_device_category)
-      let dias_val = res['diario'].map(res=>res.dimensionad_exchange_date)
+      let dias_val = res['diario_desktop'].map(res=>res.dimensionad_exchange_date)
       let dias_valdesc =res['diario_desktop'].map(res=>res.total)
       let dias_valmovil =res['diario_movil'].map(res=>res.total)
       let dias_valtablet =res['diario_tablet'].map(res=>res.total)
@@ -155,7 +156,7 @@ error => {
       var otro=this.api.getPie(this.creat_dias,this.creat_total,'canvas4','Ingresos por tamaño de creatividad');
 
       var piechar = new Chart('canvas', {
-        type: 'pie',
+        type: 'doughnut',
         data: {
           labels: this.labels,
           datasets: [
@@ -215,20 +216,20 @@ error => {
           labels: this.labeldias,
           datasets: [
             {
-              label: "Desktop",
+              //label: "Desktop",
               fill: true,
-              lineTension: 0.2,
-              backgroundColor: "RGBA(0,233,168,0.3)",
-              //borderColor: "#3cb371",
+              lineTension: 0.3,
+              backgroundColor: "rgba(6, 58, 228)",
+              borderColor: "rgba(6, 58, 228)",
               borderCapStyle: 'butt',
               borderDash: [],
               borderDashOffset: 0.0,
               borderJoinStyle: 'miter',
-              pointBorderColor: "3cb371",
-              pointBackgroundColor: "3cb371",
-              pointBorderWidth: 1,
-              pointHoverRadius: 8,
-              pointHoverBackgroundColor: "#3cb371",
+              pointBorderColor: "rgba(6, 58, 228)",
+              pointBackgroundColor: "#FF0000",
+              pointBorderWidth: 0,
+              pointHoverRadius: 1,
+              pointHoverBackgroundColor: "rgba(6, 58, 228)",
               pointHoverBorderColor: "3cb371",
               pointHoverBorderWidth: 2,
               pointRadius: 4,
@@ -316,12 +317,23 @@ error => {
                 scaleLabel: {
                      display: true,
                      labelString: 'Ingresos (USD)',
-                     fontSize: 12 
+                     fontSize: 14 
                   }
             }],
                         
         }  
-      }
+      },
+      
+          plugins: {
+            datalabels: {
+              anchor: 'end',
+              align: 'top',
+              formatter: Math.round,
+              font: {
+                weight: 'bold'
+              }
+            }
+          }
       })
 
       
