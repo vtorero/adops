@@ -107,6 +107,13 @@ getPie(labels:any,datos:any,canvas:string,titulo:string){
       legend: {
         display: true,
         position:'right',
+        labels: {
+          fontColor: 'rgb(0,0,0)',
+          boxWidth: 10,
+          padding: 20,
+          fontSize:10
+      }
+
         },
       responsive: true,
       title:{
