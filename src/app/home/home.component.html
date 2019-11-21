@@ -1,61 +1,89 @@
 <mk-box header="Personalizar Fechas" [isCollapsable]="false" [isRemovable]="false">
-  
-<label>
-    Inicio:
-    <input class="form-control" [owlDateTimeTrigger]="dt" [owlDateTime]="dt" [(ngModel)]="selectedMoment">
-    <owl-date-time [pickerType]="'calendar'" #dt></owl-date-time>
-</label>
-<label>
-    Fin:
-    <input class="form-control"  [owlDateTimeTrigger]="dt2" [owlDateTime]="dt2" [(ngModel)]="selectedMoment2">
+<div class="input-group date" style="width:200px">
+  <div class="input-group-addon">Desde:
+                    <i class="fa fa-calendar"></i>
+                  </div>
+                  <input class="form-control" [owlDateTimeTrigger]="dt" [owlDateTime]="dt" [(ngModel)]="selectedMoment">
+                  <owl-date-time [pickerType]="'calendar'" #dt></owl-date-time>
+  </div>
+  <div class="input-group date" style="width:200px">
+  <div class="input-group-addon">Hasta:
+      <i class="fa fa-calendar"></i>
+    </div>
+    <input class="form-control" [owlDateTimeTrigger]="dt" [owlDateTime]="dt2" [(ngModel)]="selectedMoment2">
     <owl-date-time [pickerType]="'calendar'" #dt2></owl-date-time>
-</label>
+</div>
     <div class="box-footer">
-        <button type="submit" (click)="enviaFechas()" class="btn btn-primary">Consultar</button>
+        <button type="button"  (click)="enviaFechas()"  class="btn  btn-info btn-lg">Consultar</button>
+     
       </div>
   </mk-box>
 <div class="row">
     <div class="col-md-3 col-xs-12">
-    <mk-box-info header="Ingresos" iconBackgroundColor="aqua" iconStyleClass="fa fa-fw fa-money">
-      $ {{ingreso_total}}
-    </mk-box-info>
+        <div class="small-box btn_ingreso">
+            <div class="inner">
+                <h3> {{ingreso_total}}
+                  <sup style="font-size: 20px">$</sup>
+                </h3>
+              <p>Ingresos</p>
+            </div>
+            <div class="icon">
+              <i class="fa fa-money"></i>
+            </div>
+            <a href="#" class="small-box-footer">&nbsp;</a>
+          </div>
+
   </div>
   <div class="col-md-3 col-xs-12">
-    <mk-box-info header="CPM" iconBackgroundColor="green" iconStyleClass="fa fa-hand-pointer-o">
-      $ {{ingreso_cpm}}
-    </mk-box-info>
+      <div class="small-box btn_cpm">
+          <div class="inner">
+              <h3> {{ingreso_cpm}}
+                <sup style="font-size: 20px">$</sup>
+              </h3>
+            <p>CPM</p>
+          </div>
+          <div class="icon">
+            <i class="fa ion-stats-bars"></i>
+          </div>
+          <a href="#" class="small-box-footer">&nbsp;</a>
+        </div>
+   
   </div>
   <div class="col-md-3 col-xs-12">
-    <mk-box-info header="Impresiones" iconBackgroundColor="yellow" iconStyleClass="fa fa-flag-o">
-     {{ impresiones}}
-    </mk-box-info>
+      <div class="small-box btn_imp">
+          <div class="inner">
+              <h3> {{impresiones}}
+                <sup style="font-size: 20px"></sup>
+              </h3>
+            <p>Impresiones</p>
+          </div>
+          <div class="icon">
+            <i class="fa fa-eye"></i>
+          </div>
+          <a href="#" class="small-box-footer">&nbsp;</a>
+        </div>
   </div>
   <div class="col-md-3 col-xs-12">
-    <mk-box-info header="Periodo" iconBackgroundColor="red" iconStyleClass="fa fa-calendar-check-o">
+
+      <div class="small-box btn_per">
+          <div class="inner">
+              <h5>  {{fecha1}} <br>
+                     {{fecha2}}  
+                <sup style="font-size: 20px"></sup>
+              </h5>
+            <p>Perodo</p>
+          </div>
+          <div class="icon">
+            <i class="fa fa-calendar-check-o"></i>
+          </div>
+          <a href="#" class="small-box-footer">&nbsp;</a>
+        </div>
+
+   <!-- <mk-box-info header="Periodo" iconBackgroundColor="red" iconStyleClass="fa fa-calendar-check-o">
      {{fecha1}} / {{fecha2}}
-    </mk-box-info>
+    </mk-box-info>-->
   </div>
 </div>
-
-<mk-box [isCollapsable]="true" [isRemovable]="false">
-<div class="row">
-<div class="col-md-6 col-xs-12">
-  <div class="chart-container">   
-      <mk-box>
-        <div id="pieChartContent"><canvas id="canvas"></canvas></div>
-      </mk-box> 
-       <div *ngIf="cargando" style="margin-left: 120px;"><img src="assets/img/load.gif"></div>
-  </div> 
-</div>
-<div class="col-md-6 col-xs-12">
-  <div class="chart-container">    
-      <mk-box><div id="barChartContent4"><canvas id="canvas4"></canvas></div></mk-box>
-    <div *ngIf="cargando" style="margin-left: 120px"><img src="assets/img/load.gif"></div>
-  </div> 
-</div>
-
-</div>
-</mk-box>
 <mk-box header="Ingreso por día" [isCollapsable]="true" [isRemovable]="false">
   <div class="col-md-12 col-xs-12">
     <div class="chart-container">   
@@ -63,6 +91,26 @@
     </div> 
   </div>
 </mk-box>
+<mk-box header="Por dispositivo y Creatividad"  [isCollapsable]="true" [isRemovable]="true">
+<div class="row">
+<div class="col-md-6 col-xs-12">
+  <div class="chart-container">   
+     
+        <div id="pieChartContent"><canvas id="canvas"></canvas></div>
+    
+       <div *ngIf="cargando" style="margin-left: 120px;"><img src="assets/img/load.gif"></div>
+  </div> 
+</div>
+<div class="col-md-6 col-xs-12">
+  <div class="chart-container">    
+      <div id="barChartContent4"><canvas id="canvas4"></canvas></div>
+    <div *ngIf="cargando" style="margin-left: 120px"><img src="assets/img/load.gif"></div>
+  </div> 
+</div>
+
+</div>
+</mk-box>
+
 
 <mk-box header="Data consultada" [isCollapsable]="true" [isRemovable]="false">
   <div class="example-header mat-elevation-z8">

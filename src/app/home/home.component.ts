@@ -94,7 +94,6 @@ renderDataTable() {
   let emp=localStorage.getItem("currentEmpresa");
   this.api.getTablaInicial(emp).subscribe(x => {  
   this.dataSource = new MatTableDataSource();
-  console.log("tabla",x);  
   this.dataSource.data = x; 
   this.dataSource.sort = this.sort;
   this.dataSource.paginator = this.paginator;  
@@ -107,7 +106,6 @@ error => {
 renderDataTableConsulta(inicio:string,final:string,emp:string) { 
   this.dataSource=[];
   this.api.getTablaConsultar(inicio,final,emp).subscribe( x => {  
-  console.log("tablac",x);
   this.dataSource = new MatTableDataSource();  
   this.dataSource.data = x; 
   this.dataSource.sort = this.sort;
@@ -154,7 +152,7 @@ error => {
       creative_total.forEach((res)=>{this.creat_total.push(res)})
       
 
-      var otro=this.api.getPie(this.creat_dias,this.creat_total,'canvas4','Ingreso por tamaño de creatividad');
+      var otro=this.api.getPie(this.creat_dias,this.creat_total,'canvas4','Ingresos por tamaño de creatividad');
 
       var piechar = new Chart('canvas', {
         type: 'doughnut',
@@ -189,11 +187,10 @@ error => {
         },
           legend: {
             display: true,
-            position:'bottom',
-            labels: {
+            position:'left',
+                    labels: {
               fontColor: 'rgb(0,0,0)',
-              boxWidth: 10,
-              padding: 20
+              
           }
         },
           title: {
@@ -218,7 +215,7 @@ error => {
             {
               label: "Desktop",
               fill: true,
-              lineTension: 0,
+              lineTension: 0.2,
               backgroundColor: "RGBA(0,233,168,0.3)",
               //borderColor: "#3cb371",
               borderCapStyle: 'butt',
@@ -237,8 +234,8 @@ error => {
               // notice the gap in the data and the spanGaps: true
               data: this.dias_value_desk,
               spanGaps: true,
-            },
-            {
+            }
+           /* {
               label: "Mobile",
               fill: true,
               lineTension: 0,
@@ -283,13 +280,13 @@ error => {
               // notice the gap in the data and the spanGaps: false
               data: this.dias_value_tablet,
               spanGaps: false,
-            }
+            }*/
           ],
        
         },
         options: {
           legend: {
-            display: true,
+            display: false,
             },
           responsive: true,
           title:{
@@ -306,11 +303,14 @@ error => {
               intersect: true
           },
           scales: {
-            xAxes: [],
-            yAxes: [{
-                ticks: {
-                    //beginAtZero:true
-                },
+            xAxes:[{ gridLines: {
+                  display:false
+              }}],
+            yAxes: [
+              {
+              gridLines: {
+                  display:false
+              } , 
                 scaleLabel: {
                      display: true,
                      labelString: 'Ingresos (USD)',
@@ -367,7 +367,7 @@ loadDatos(inicio:string,final:string,empresa:string){
 
       this.api.getReportes(inicio,final,empresa)
       .subscribe(res => {
-        console.log("ingreso",res);
+    
         this.ingreso_cpm= res['ingreso'].map(res => res.ingreso_cpm);
         this.ingreso_total= res['ingreso'].map(res => res.ingreso_total);
         this.impresiones= res['ingreso'].map(res => res.impresiones);
@@ -482,8 +482,8 @@ loadDatos(inicio:string,final:string,empresa:string){
           // notice the gap in the data and the spanGaps: true
           data: this.dias_value_desk,
           spanGaps: true,
-        },
-        {
+        }
+        /*{
           label: "Mobil",
           fill: true,
           lineTension: 0,
@@ -528,13 +528,13 @@ loadDatos(inicio:string,final:string,empresa:string){
           // notice the gap in the data and the spanGaps: false
           data: this.dias_value_tablet,
           spanGaps: false,
-        }
+        }*/
       ],
    
     },
     options: {
       legend: {
-        display: true,
+        display: false,
         },
       responsive: true,
       title:{

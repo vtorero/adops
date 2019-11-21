@@ -106,7 +106,7 @@ getPie(labels:any,datos:any,canvas:string,titulo:string){
     options: {
       legend: {
         display: true,
-        position:'bottom',
+        position:'right',
         },
       responsive: true,
       title:{

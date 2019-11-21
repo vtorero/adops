@@ -36,3 +36,24 @@ table{width: 100%;}
   font-size: 17px !important;
   font-weight: bolder;
 }
+
+.btn_ingreso{
+  background-color: #17a2b8;
+  color:white;
+}
+.btn_cpm{
+  background-color:#28a745;
+  color:white;
+}
+.btn_imp{
+  background-color:#ffc107;
+  color:white;
+}
+
+.btn_per{
+  background-color:#dc3545;
+  color:white;
+}
+.btn_per h5{
+  font-weight: bolder;
+}
