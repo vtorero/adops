@@ -446,11 +446,12 @@ loadDatos(inicio:string,final:string,empresa:string){
     },
       legend: {
         display: true,
-        position:'bottom',
-        labels: {
+        position:'right',
+                labels: {
           fontColor: 'rgb(0,0,0)',
           boxWidth: 10,
-          padding: 20
+          padding: 20,
+          fontSize:10
       }
     },
       title: {
