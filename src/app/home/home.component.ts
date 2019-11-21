@@ -477,20 +477,20 @@ loadDatos(inicio:string,final:string,empresa:string){
       labels: this.labeldias,
       datasets: [
         {
-          label: "Desktop",
+          //label: "Desktop",
           fill: true,
-          lineTension: 0,
-          backgroundColor: "RGBA(0,233,168,0.3)",
-          borderColor: "#3cb371",
+          lineTension: 0.3,
+          backgroundColor: "rgba(6, 58, 228)",
+          borderColor: "rgba(6, 58, 228)",
           borderCapStyle: 'butt',
           borderDash: [],
           borderDashOffset: 0.0,
           borderJoinStyle: 'miter',
-          pointBorderColor: "3cb371",
-          pointBackgroundColor: "3cb371",
-          pointBorderWidth: 1,
-          pointHoverRadius: 8,
-          pointHoverBackgroundColor: "#3cb371",
+          pointBorderColor: "rgba(6, 58, 228)",
+          pointBackgroundColor: "#FF0000",
+          pointBorderWidth: 0,
+          pointHoverRadius: 1,
+          pointHoverBackgroundColor: "rgba(6, 58, 228)",
           pointHoverBorderColor: "3cb371",
           pointHoverBorderWidth: 2,
           pointRadius: 4,
@@ -499,12 +499,12 @@ loadDatos(inicio:string,final:string,empresa:string){
           data: this.dias_value_desk,
           spanGaps: true,
         }
-        /*{
-          label: "Mobil",
+       /* {
+          label: "Mobile",
           fill: true,
           lineTension: 0,
           backgroundColor: "RGBA(61,0,255,0.3)",
-          borderColor: "blue", // The main line color
+          //borderColor: "blue", // The main line color
           borderCapStyle: 'butt',
           borderDash: [], // try [5, 15] for instance
           borderDashOffset: 0.0,
@@ -527,7 +527,7 @@ loadDatos(inicio:string,final:string,empresa:string){
           fill: true,
           lineTension: 0,
           backgroundColor: "RGBA(246,91,246,0.3)",
-          borderColor: "#F65BF6", // The main line color
+          //borderColor: "#F65BF6", // The main line color
           borderCapStyle: 'butt',
           borderDash: [], // try [5, 15] for instance
           borderDashOffset: 0.0,
@@ -556,7 +556,7 @@ loadDatos(inicio:string,final:string,empresa:string){
       title:{
           display:true,
           text:'Ingresos por día',
-          fontSize:14
+          fontSize:15
       },
       tooltips: {
           mode: 'index',
@@ -567,18 +567,34 @@ loadDatos(inicio:string,final:string,empresa:string){
           intersect: true
       },
       scales: {
-        yAxes: [{
-            ticks: {
-                beginAtZero:true
-            },
+        xAxes:[{ gridLines: {
+              display:false
+          }}],
+        yAxes: [
+          {
+          gridLines: {
+              display:false
+          } , 
             scaleLabel: {
                  display: true,
                  labelString: 'Ingresos (USD)',
-                 fontSize: 20 
+                 fontSize: 14 
               }
-        }]            
+        }],
+                    
     }  
-  }
+  },
+  
+      plugins: {
+        datalabels: {
+          anchor: 'end',
+          align: 'top',
+          formatter: Math.round,
+          font: {
+            weight: 'bold'
+          }
+        }
+      }
   })
 this.cargando=false;
 
