@@ -47,7 +47,9 @@ public GuardarDatosGeneral(datos:Datosgeneral):Observable<Datosgeneral[]>{
   let params = 'json'+json;
 
  return this._http.post<Datosgeneral[]>(Global.BASE_API_URL+'api.php/general',{
-    params
+    nombres:datos.nombres,
+    correo:datos.correo,
+    telefono:datos.telefono
 },{ headers: this.headers }).pipe(map(result => result));
 }
 
