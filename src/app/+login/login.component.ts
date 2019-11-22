@@ -24,7 +24,7 @@ constructor(private router:Router,private login:LoginService) {
   this.error_user=false;
  }
 
- loginUser(formData){
+ loginUser(){
     event.preventDefault();
     
     if(this.usuario.usuario){

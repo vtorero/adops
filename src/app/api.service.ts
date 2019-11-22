@@ -41,6 +41,13 @@ getDatos(empresa:string) {
   ).pipe(map(result => result));
 }
 
+public GuardarDatosGeneral(empresa:string):Observable<Impresiones[]> {
+  return this._http.post<Impresiones[]>(Global.BASE_API_URL+'api.php/general',{
+    emp:empresa
+},{ headers: this.headers }).pipe(map(result => result));
+}
+
+
 public getTablaInicial(empresa:string):Observable<Impresiones[]> {
   return this._http.post<Impresiones[]>(Global.BASE_API_URL+'api.php/tabla',{
     emp:empresa

@@ -28,6 +28,7 @@ import { MatSortModule } from '@angular/material/sort';
 import { PagoComponent } from './pago/pago.component';
 import { GeneralComponent } from './general/general.component';
 import { PaginatorEspañol } from './modelos/paginator-espanol';
+import { DatosgeneralComponent } from './modelos/datosgeneral/datosgeneral.component';
 
 
 @NgModule({
@@ -56,7 +57,8 @@ import { PaginatorEspañol } from './modelos/paginator-espanol';
     PagoComponent,
     HomeComponent,
     LoginComponent,
-    GeneralComponent
+    GeneralComponent,
+    DatosgeneralComponent
       ],
   bootstrap: [AppComponent]
 })
