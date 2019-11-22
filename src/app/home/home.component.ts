@@ -245,7 +245,7 @@ error => {
             },
           responsive: true,
           title:{
-              display:true,
+              display:false,
               text:'Ingresos por día',
               fontSize:15
           },
