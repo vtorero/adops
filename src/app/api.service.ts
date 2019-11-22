@@ -7,6 +7,7 @@ import 'rxjs/add/operator/map';
 import { Global } from './global';
 import { map } from 'rxjs/operators';
 import { Impresiones } from './modelos/impresiones';
+import { Datosgeneral } from './modelos/datosgeneral';
 
 
 @Injectable({
@@ -41,9 +42,12 @@ getDatos(empresa:string) {
   ).pipe(map(result => result));
 }
 
-public GuardarDatosGeneral(empresa:string):Observable<Impresiones[]> {
-  return this._http.post<Impresiones[]>(Global.BASE_API_URL+'api.php/general',{
-    emp:empresa
+public GuardarDatosGeneral(datos:Datosgeneral):Observable<Datosgeneral[]>{
+  let json = JSON.stringify(datos);
+  let params = 'json'+json;
+
+ return this._http.post<Datosgeneral[]>(Global.BASE_API_URL+'api.php/general',{
+    params
 },{ headers: this.headers }).pipe(map(result => result));
 }
 

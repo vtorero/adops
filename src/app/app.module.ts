@@ -18,7 +18,6 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { LoadingPageModule, MaterialBarModule } from 'angular-loading-page';
 import { BoxModule, BoxInfoModule as MkBoxInfoModule } from 'angular-admin-lte';
-import { LoginComponent } from './login/login.component';
 import { MatNativeDateModule } from '@angular/material/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
@@ -28,7 +27,7 @@ import { MatSortModule } from '@angular/material/sort';
 import { PagoComponent } from './pago/pago.component';
 import { GeneralComponent } from './general/general.component';
 import { PaginatorEspañol } from './modelos/paginator-espanol';
-import { DatosgeneralComponent } from './modelos/datosgeneral/datosgeneral.component';
+
 
 
 @NgModule({
@@ -56,9 +55,8 @@ import { DatosgeneralComponent } from './modelos/datosgeneral/datosgeneral.compo
     AppComponent,
     PagoComponent,
     HomeComponent,
-    LoginComponent,
     GeneralComponent,
-    DatosgeneralComponent
+    
       ],
   bootstrap: [AppComponent]
 })
