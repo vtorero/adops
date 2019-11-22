@@ -1,5 +1,5 @@
 <mk-box header="Personalizar Fechas" [isCollapsable]="false" [isRemovable]="false">
-<div class="input-group date" style="width:200px">
+<div class="input-group date" style="width:400x">
   <div class="input-group-addon">Desde:
                     <i class="fa fa-calendar"></i>
                   </div>
@@ -67,9 +67,9 @@
 
       <div class="small-box btn_per">
           <div class="inner">
-              <h4>  {{inicio}} - {{final}}  
+              <h3>  {{inicio}} al {{final}}  
                 <sup style="font-size: 20px"></sup>
-              </h4>
+              </h3>
             <p>Período</p>
           </div>
           <div class="icon">
@@ -132,13 +132,13 @@
    <!-- Columna Apellido -->
     <ng-container matColumnDef="columnad_exchange_ad_ecpm">
           <mat-header-cell *matHeaderCellDef mat-sort-header> <span class="titulotabla">CPM (USD)</span></mat-header-cell>
-          <mat-cell *matCellDef="let row"> {{row.columnad_exchange_ad_ecpm}} </mat-cell>
+          <mat-cell *matCellDef="let row">$ {{row.columnad_exchange_ad_ecpm}} </mat-cell>
     </ng-container>
 
       <!-- Columna Nacionalidad -->
     <ng-container matColumnDef="columnad_exchange_estimated_revenue">
           <mat-header-cell *matHeaderCellDef mat-sort-header><span class="titulotabla">Ingresos (USD)</span></mat-header-cell>
-          <mat-cell *matCellDef="let row"> {{row.columnad_exchange_estimated_revenue}} </mat-cell>
+          <mat-cell *matCellDef="let row">$ {{row.columnad_exchange_estimated_revenue}} </mat-cell>
     </ng-container>
 
      <!-- Columna Edad -->
