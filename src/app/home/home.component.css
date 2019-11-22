@@ -21,7 +21,7 @@ table{width: 100%;}
   }
 
   .mat-row:nth-child(even){
-    background-color:#bbdefbff
+    background-color:#ccccccff
   }
 
 .mat-row:nth-child(odd){
@@ -29,12 +29,13 @@ table{width: 100%;}
 }
 
 .encabezado{
-      background-color:#2196f3ff;
+      background-color:#0f498aff;
       font-size: 18px;
 }
 .titulotabla{
   font-size: 17px !important;
   font-weight: bolder;
+  color:#ffffff
 }
 
 .btn_ingreso{

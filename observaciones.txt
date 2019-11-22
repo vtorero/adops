@@ -1,11 +1,4 @@
-- Periodo imprimir
-- Ingresos por dispositivos eliminar ejes y lineas de division
-- Quitar lineas de contorno graficos
-- Eje Ingresos (USD) 2 Grafico
-- ingresos por dia 
-- lineas de division horizontales
--  Hemd x mobile
-- Ingresos x tamaño creatividad titulo tercer grafico.
-- mostrar 10 principales y cambiar el titulo del eje y
-- Datataable quitar tamaño y dispositivo y agregar cpm
-- 
+obs 20/11
+Grafico x creatividad leyenda a la derecha y top 5
+Graficos x dia totalizado y la fecha mas corta
+Fecha,ingresos,impresiones,cpm
