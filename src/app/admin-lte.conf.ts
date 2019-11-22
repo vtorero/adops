@@ -10,13 +10,16 @@ export const adminLteConf = {
   // layout: 'normal',
   sidebarLeftMenu: [
     {label: 'OPCIONES PRINCIPALES', separator: true},
-    {label: 'Inicio', route: '/dash', iconClasses: 'fa fa-road', pullRights: [{text: 'New', classes: 'label pull-right bg-green'}]},
-    {label: 'Configuración', iconClasses: 'fa fa-th-list', children: [
+    {label: 'Dashboard', route: '/dash', iconClasses: 'fa fa-dashboard'},
+    {label: 'Datos generales', route: 'general/formulario',iconClasses: 'fa fa-tasks'},  
+    {label: 'Datos Bancarios', route: 'pagos/formulario',iconClasses: 'fa fa-money'},
+    /*{label: 'Configuración', iconClasses: 'fa fa-th-list', children: [
       {label: 'General', route: 'general/formulario'},  
       {label: 'Datos Bancarios', route: 'pagos/formulario'},
         
       ]},
     /*{label: 'COMPONENTS', separator: true},
+     pullRights: [{text: 'New', classes: 'label pull-right bg-green'}
     {label: 'Accordion', route: 'accordion', iconClasses: 'fa fa-tasks'},
     {label: 'Alert', route: 'alert', iconClasses: 'fa fa-exclamation-triangle'},
     {label: 'Boxs', iconClasses: 'fa fa-files-o', children: [
