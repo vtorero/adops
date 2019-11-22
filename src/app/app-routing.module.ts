@@ -26,7 +26,7 @@ const routes: Routes = [
   {
   path: 'dash',
   data: {
-      title: 'Resultados'
+      //title: 'Resultados'
   },
   children: [
     {

@@ -154,62 +154,10 @@ error => {
       creative_total.forEach((res)=>{this.creat_total.push(res)})
       
 
-      var otro=this.api.getPie(this.creat_dias,this.creat_total,'canvas4','Ingresos por tamaño de creatividad');
+      this.api.getPie(this.creat_dias,this.creat_total,'canvas4','Ingresos por tamaño de creatividad');
+      this.api.getPie(this.labels,this.values,'canvas','Ingresos por dispositivo');
 
-      var piechar = new Chart('canvas', {
-        type: 'doughnut',
-        data: {
-          labels: this.labels,
-          datasets: [
-            {
-              data: this.values,
-              //borderColor: '#3cba9f',
-              fill: true,
-              backgroundColor: [  
-                "#3cb371",  
-                "#0000FF",  
-                "#9966FF",  
-                "#4C4CFF",  
-                "#00FFFF",  
-                "#f990a7",  
-                "#aad2ed",  
-                "#FF00FF",  
-                "Blue",  
-                "Red",  
-                "Blue"  
-              ]
-            }
-          
-          ],
-    
-        },
-        options: {
-          pieceLabel: {
-            fontColor: '#000'
-        },
-          legend: {
-            display: true,
-            position:'right',
-                    labels: {
-              fontColor: 'rgb(0,0,0)',
-              boxWidth: 10,
-              padding: 20,
-              fontSize:10
-          }
-        },
-          title: {
-            display: true,
-            text: 'Ingresos por dispositivo',
-            position:'top',
-            fontSize:14
-        },
-         
-          scales: {
-            xAxes: [],
-            yAxes: []
-          }
-        }
-      })
+ 
   
        this.barchar = new Chart('canvas2', {
         type: 'line',
@@ -219,19 +167,18 @@ error => {
             {
               //label: "Desktop",
               fill: true,
-              lineTension: 0.3,
-              backgroundColor: "rgba(6, 58, 228)",
-              borderColor: "rgba(6, 58, 228)",
+              backgroundColor: "#2196f3ff",
+              borderColor: "#2196f3ff",
               borderCapStyle: 'butt',
               borderDash: [],
               borderDashOffset: 0.0,
               borderJoinStyle: 'miter',
               pointBorderColor: "rgba(6, 58, 228)",
-              pointBackgroundColor: "#FF0000",
+              pointBackgroundColor: "#000",
               pointBorderWidth: 0,
               pointHoverRadius: 1,
               pointHoverBackgroundColor: "rgba(6, 58, 228)",
-              pointHoverBorderColor: "3cb371",
+              pointHoverBorderColor: "#2196f3ff",
               pointHoverBorderWidth: 2,
               pointRadius: 4,
               pointHitRadius: 10,
@@ -412,64 +359,9 @@ loadDatos(inicio:string,final:string,empresa:string){
   this.window.destroy();
   this.window = new Chart(this.piechar, {});
 
-  var otro=this.api.getPie(this.creat_dias,this.creat_total,'canvas4','Ingreso por tamaño de creatividad');
-  var piechar = new Chart('canvas', {
-    type: 'doughnut',
-    data: {
-      labels: this.labels,
-      datasets: [
-        {
-          data: this.values,
-          //borderColor: '#3cba9f',
-          fill: true,
-          backgroundColor: [  
-            "#3cb371",  
-            "#0000FF",  
-            "#9966FF",  
-            "#4C4CFF",  
-            "#00FFFF",  
-            "#f990a7",  
-            "#aad2ed",  
-            "#FF00FF",  
-            "Blue",  
-            "Red",  
-            "Blue"  
-          ]
-        }
-      
-      ],
-
-    },
-    options: {
-      pieceLabel: {
-        fontColor: '#000'
-    },
-      legend: {
-        display: true,
-        position:'right',
-                labels: {
-          fontColor: 'rgb(0,0,0)',
-          boxWidth: 10,
-          padding: 20,
-          fontSize:10
-      }
-    },
-      title: {
-        display: true,
-        text: 'Ingresos por dispositivo',
-        position:'top',
-        fontSize:14
-    },
-     
-      scales: {
-        xAxes: [],
-        yAxes: []
-      }
-    }
-  })
-
+  this.api.getPie(this.creat_dias,this.creat_total,'canvas4','Ingreso por tamaño de creatividad');
+  this.api.getPie(this.labels,this.values,'canvas','Ingresos por dispositivo');
   
-
 
   this.barchar = new Chart('canvas2', {
     type: 'line',
@@ -480,24 +372,24 @@ loadDatos(inicio:string,final:string,empresa:string){
           //label: "Desktop",
           fill: true,
           lineTension: 0.3,
-          backgroundColor: "rgba(6, 58, 228)",
-          borderColor: "rgba(6, 58, 228)",
+          backgroundColor: "#2196f3ff",
+          borderColor: "#2196f3ff",
           borderCapStyle: 'butt',
           borderDash: [],
           borderDashOffset: 0.0,
           borderJoinStyle: 'miter',
           pointBorderColor: "rgba(6, 58, 228)",
-          pointBackgroundColor: "#FF0000",
+          pointBackgroundColor: "#000",
           pointBorderWidth: 0,
           pointHoverRadius: 1,
           pointHoverBackgroundColor: "rgba(6, 58, 228)",
-          pointHoverBorderColor: "3cb371",
+          pointHoverBorderColor: "#2196f3ff",
           pointHoverBorderWidth: 2,
           pointRadius: 4,
           pointHitRadius: 10,
-          // notice the gap in the data and the spanGaps: true
+          //spanGaps: true,
           data: this.dias_value_desk,
-          spanGaps: true,
+          //spanGaps: true,
         }
        /* {
           label: "Mobile",
