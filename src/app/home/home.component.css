@@ -55,6 +55,7 @@ table{width: 100%;}
   background-color:#dc3545;
   color:white;
 }
-.btn_per h5{
+.btn_per h4{
   font-weight: bolder;
+  font-size:28px;
 }

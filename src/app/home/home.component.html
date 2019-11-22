@@ -10,7 +10,7 @@
   <div class="input-group-addon">Hasta:
       <i class="fa fa-calendar"></i>
     </div>
-    <input class="form-control" [owlDateTimeTrigger]="dt" [owlDateTime]="dt2" [max]="startDate" [(ngModel)]="selectedMoment2">
+    <input class="form-control" [owlDateTimeTrigger]="dt2" [owlDateTime]="dt2" [max]="startDate" [(ngModel)]="selectedMoment2">
     <owl-date-time [pickerType]="'calendar'" #dt2></owl-date-time>
 </div>
     <div class="box-footer">
@@ -67,10 +67,9 @@
 
       <div class="small-box btn_per">
           <div class="inner">
-              <h5>  {{fecha1}} <br>
-                     {{fecha2}}  
+              <h4>  {{inicio}} - {{final}}  
                 <sup style="font-size: 20px"></sup>
-              </h5>
+              </h4>
             <p>Perodo</p>
           </div>
           <div class="icon">

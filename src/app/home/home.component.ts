@@ -61,6 +61,8 @@ datatable=[];
 startDate:Date = new Date();
 cargando:boolean=false;
 pageEvent: PageEvent;
+inicio:string;
+final:string;
 data:string= localStorage.getItem("data");
   window: any;
   columnad_exchange_estimated_revenue: number;
@@ -131,6 +133,8 @@ error => {
           console.log(res);
          
       this.ingreso_cpm= res['ingreso'].map(res => res.ingreso_cpm);
+      this.inicio=res['inicio'];
+      this.final=res['final'];
       this.ingreso_total= res['ingreso'].map(res => res.ingreso_total);
       this.impresiones= res['ingreso'].map(res => res.impresiones);
       let alldates = res['data'].map(res => res.total)
@@ -330,6 +334,8 @@ loadDatos(inicio:string,final:string,empresa:string){
       this.api.getReportes(inicio,final,empresa)
       .subscribe(res => {
     
+        this.inicio=res['inicio'];
+        this.final=res['final'];
         this.ingreso_cpm= res['ingreso'].map(res => res.ingreso_cpm);
         this.ingreso_total= res['ingreso'].map(res => res.ingreso_total);
         this.impresiones= res['ingreso'].map(res => res.impresiones);
@@ -338,9 +344,7 @@ loadDatos(inicio:string,final:string,empresa:string){
 
         let dias = res['diario_desktop'].map(res=>res.dimensionad_exchange_date)
         let dias_valdesck =res['diario_desktop'].map(res=>res.total)
-        let dias_valmovil =res['diario_movil'].map(res=>res.total)
-        let dias_valtablet =res['diario_tablet'].map(res=>res.total)
-
+        
         let creative_sizes = res['creatives'].map(res=>res.dimensionad_exchange_creative_sizes);
         let creative_total = res['creatives'].map(res=>res.total);
     
@@ -352,8 +356,7 @@ loadDatos(inicio:string,final:string,empresa:string){
   
         dias.forEach((res)=>{this.labeldias.push(res)})
         dias_valdesck.forEach((res)=>{this.dias_value_desk.push(res)})
-        dias_valmovil.forEach((res)=>{this.dias_value_movil.push(res)})
-        dias_valtablet.forEach((res)=>{this.dias_value_tablet.push(res)})
+        
   
   if(this.window != undefined)
   this.window.destroy();
