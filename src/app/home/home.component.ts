@@ -449,7 +449,7 @@ loadDatos(inicio:string,final:string,empresa:string){
         },
       responsive: true,
       title:{
-          display:true,
+          display:false,
           text:'Ingresos por día',
           fontSize:15
       },
