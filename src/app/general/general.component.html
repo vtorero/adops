@@ -1,6 +1,7 @@
       
            <mk-box header="Alta de Partners" [isCollapsable]="false" [isRemovable]="false">
             <form #formGeneral="ngForm" (ngSubmit)="onSubmit()">
+                <input type="hidden" name="empresa" #empresa="ngModel" [(ngModel)]="datosGeneral.empresa">
               <div class="col-md-6">
                        <div class="form-group">
 
@@ -16,16 +17,16 @@
             </div>
             <div class="form-group">
                 <label for="exampleInputEmail1">Teléfono *</label>
-                <span *ngIf="nombres.touched && !nombres.valid" class="label label-danger">El teléfono es requerido</span>
-                <input class="form-control"  name="telefono" #telefono="ngModel" [(ngModel)]="datosGeneral.telefono" type="text" placeholder="Teléfono">
+                <span *ngIf="telefono.touched && !telefono.valid" class="label label-danger">El teléfono es requerido</span>
+                <input class="form-control"  name="telefono" #telefono="ngModel" [(ngModel)]="datosGeneral.telefono" type="text" placeholder="Teléfono" required>
               </div>
               <div class="form-group">
                   <label for="exampleInputEmail1">Empresa</label>
                   <input class="form-control" type="text" placeholder="Empresa o Sociedad">
                 </div>
                 <div class="form-group">
-                    <label for="exampleInputEmail1">Paginas Web</label>
-                    <textarea class="form-control" rows="3" placeholder="Paginas Web"></textarea>
+                    <label for="exampleInputEmail1">Páginas Web</label>
+                    <textarea class="form-control" rows="3" placeholder="Páginas Web"></textarea>
                 </div>
                 <div class="form-group">
                     <label for="exampleInputEmail1">CUIT / RUT / FEIN / TAXPAYER </label>
@@ -54,16 +55,16 @@
                         <input class="form-control" type="text" placeholder="País">
                   </div>
                   <div class="form-group">
-                      <label for="exampleInputEmail1">Contacto de Finanzas</label>
-                      <input class="form-control" type="text" placeholder="Contacto de Finanzas">
+                      <label for="exampleInputEmail1">Contácto de Finanzas</label>
+                      <input class="form-control" type="text" placeholder="Contácto de Finanzas">
                   </div>
                   <div class="form-group">
-                      <label for="exampleInputEmail1">Teléfono Contacto de Finanzas</label>
-                      <input class="form-control" type="text" placeholder="Teléfono Contacto de Finanzas">
+                      <label for="exampleInputEmail1">Teléfono Contácto de Finanzas</label>
+                      <input class="form-control" type="text" placeholder="Teléfono Contácto de Finanzas">
                   </div>
                   <div class="form-group">
-                      <label for="exampleInputEmail1">Correo Contacto de Finanzas</label>
-                      <input class="form-control" type="text" placeholder="Correo Contacto de Finanzas">
+                      <label for="exampleInputEmail1">Correo Contácto de Finanzas</label>
+                      <input class="form-control" type="text" placeholder="Correo Contácto de Finanzas">
                   </div>
                   <div class="form-group">
                       <label for="exampleInputEmail1">Medios de la empresa</label>

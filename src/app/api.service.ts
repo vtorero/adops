@@ -42,15 +42,19 @@ getDatos(empresa:string) {
   ).pipe(map(result => result));
 }
 
-public GuardarDatosGeneral(datos:Datosgeneral):Observable<Datosgeneral[]>{
-  let json = JSON.stringify(datos);
-  let params = 'json'+json;
+public GuardarDatosGeneral(datos:Datosgeneral):Observable<any> {
+let headers = new HttpHeaders().set('Content-Type','application/x-www-form-urlencoded');
+let json = JSON.stringify(datos);
+ return this._http.post(Global.BASE_API_URL+'api.php/general',
+  {json:json},{ headers: headers });
+}
 
- return this._http.post<Datosgeneral[]>(Global.BASE_API_URL+'api.php/general',{
-    nombres:datos.nombres,
-    correo:datos.correo,
-    telefono:datos.telefono
-},{ headers: this.headers }).pipe(map(result => result));
+getDatosGeneral(empresa:string) {
+  return this._http.post(Global.BASE_API_URL+'api.php/generalget',
+  {
+    empresa:empresa
+  },{ headers: this.headers }
+  ).pipe(map(result => result));
 }
 
 

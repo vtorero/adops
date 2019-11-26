@@ -1,21 +1,21 @@
-<mk-box header="Personalizar Fechas" [isCollapsable]="false" [isRemovable]="false">
-<div class="input-group date" style="width:400px">
-  <div class="input-group-addon">Desde:
+<mk-box [isCollapsable]="false" [isRemovable]="false">
+<div class="input-group date" style="width:400px;float:right">
+  <div class="input-group-addon">Período&nbsp;&nbsp;
                     <i class="fa fa-calendar"></i>
                   </div>
                   <input class="form-control" [owlDateTimeTrigger]="dt" [max]="startDate" [owlDateTime]="dt" [(ngModel)]="selectedMoment">
-                  <owl-date-time [pickerType]="'calendar'" #dt></owl-date-time>
-                  <div class="input-group-addon">Hasta:
+                  <owl-date-time [pickerType]="'calendar'" #dt></owl-date-time> 
+                  <div class="input-group-addon"> 
                       <i class="fa fa-calendar"></i>
                     </div>
                     <input class="form-control" [owlDateTimeTrigger]="dt2" [owlDateTime]="dt2" [max]="startDate" [(ngModel)]="selectedMoment2">
                     <owl-date-time [pickerType]="'calendar'" #dt2></owl-date-time>
 
   </div>
-  <div class="input-group date" style="width:200px">
+  <div class="input-group date" style="width:100%">
 
 </div>
-    <div class="box-footer">
+    <div class="box-footer" style="float:right">
         <button type="button"  (click)="enviaFechas()"  class="btn  btn-info btn-lg">Consultar</button>
      
       </div>
