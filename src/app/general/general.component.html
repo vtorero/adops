@@ -1,4 +1,4 @@
-      
+<span *ngIf="show" class="label label-success">{{mensaje}}</span>
            <mk-box header="Alta de Partners" [isCollapsable]="false" [isRemovable]="false">
             <form #formGeneral="ngForm" (ngSubmit)="onSubmit()">
                 <input type="hidden" name="empresa" #empresa="ngModel" [(ngModel)]="datosGeneral.empresa">
@@ -18,57 +18,70 @@
             <div class="form-group">
                 <label for="exampleInputEmail1">Teléfono *</label>
                 <span *ngIf="telefono.touched && !telefono.valid" class="label label-danger">El teléfono es requerido</span>
-                <input class="form-control"  name="telefono" #telefono="ngModel" [(ngModel)]="datosGeneral.telefono" type="text" placeholder="Teléfono" required>
+                <input class="form-control" type="text" name="telefono" #telefono="ngModel" [(ngModel)]="datosGeneral.telefono" placeholder="Teléfono" required>
               </div>
               <div class="form-group">
-                  <label for="exampleInputEmail1">Empresa</label>
-                  <input class="form-control" type="text" placeholder="Empresa o Sociedad">
+                  <label for="exampleInputEmail1">Empresa * </label>
+                  <span *ngIf="sociedad.touched && !sociedad.valid" class="label label-danger">La empresa o sociedad es requerida</span>
+                  <input class="form-control" type="text" name="sociedad" #sociedad="ngModel" [(ngModel)]="datosGeneral.sociedad" placeholder="Empresa o Sociedad" required>
                 </div>
                 <div class="form-group">
-                    <label for="exampleInputEmail1">Páginas Web</label>
-                    <textarea class="form-control" rows="3" placeholder="Páginas Web"></textarea>
+                    <label for="exampleInputEmail1">Páginas Web *</label>
+                    <span *ngIf="paginas.touched && !paginas.valid" class="label label-danger">La pagina web es requerida</span>
+                    <textarea class="form-control" rows="3" name="paginas" #paginas="ngModel" [(ngModel)]="datosGeneral.paginas" placeholder="Páginas Web" required></textarea>
                 </div>
                 <div class="form-group">
-                    <label for="exampleInputEmail1">CUIT / RUT / FEIN / TAXPAYER </label>
-                    <input class="form-control" type="text" placeholder="CUIT / RUT / FEIN / TAXPAYER ">
+                    <label for="exampleInputEmail1">CUIT / RUT / FEIN / TAXPAYER *</label>
+                    <span *ngIf="rut.touched && !rut.valid" class="label label-danger">Este campo es requerido</span>
+                    <input class="form-control" type="text" name="rut" #rut="ngModel" [(ngModel)]="datosGeneral.rut" placeholder="CUIT / RUT / FEIN / TAXPAYER " required>
                   </div>
                   <div class="form-group">
-                      <label for="exampleInputEmail1">Domicilio Comercial</label>
-                      <textarea class="form-control" rows="5" placeholder="Domicilio comercial"></textarea>
+                      <label for="exampleInputEmail1">Domicilio Comercial *</label>
+                      <span *ngIf="domicilio.touched && !domicilio.valid" class="label label-danger">El domicilio es requerido</span>
+                      <textarea class="form-control" rows="5"  name="domicilio" #domicilio="ngModel" [(ngModel)]="datosGeneral.domicilio" placeholder="Domicilio comercial" required></textarea>
                   </div>
               </div>
     <div class="col-md-6">
           <div class="form-group">
-              <label for="exampleInputEmail1">Calle</label>
-              <input class="form-control" type="text" placeholder="Calle">
+              <label for="exampleInputEmail1">Calle *</label>
+
+              <span *ngIf="calle.touched && !calle.valid" class="label label-danger">La calle es requerida *</span>
+              <input class="form-control" type="text" name="calle" #calle="ngModel" [(ngModel)]="datosGeneral.calle" placeholder="Calle" required>
             </div>
               <div class="form-group">
-                  <label for="exampleInputEmail1">Numero</label>
-                  <input class="form-control" type="text" placeholder="Numero">
+                  <label for="exampleInputEmail1">Numero *</label>
+                  <span *ngIf="numero.touched && !numero.valid" class="label label-danger">El  número es requerido</span>
+                  <input class="form-control" type="text" name="numero" #numero="ngModel" [(ngModel)]="datosGeneral.numero" placeholder="Número" required>
                 </div>
                 <div class="form-group">
-                    <label for="exampleInputEmail1">Ciudad</label>
-                    <input class="form-control" type="text" placeholder="Ciudad">
+                    <label for="exampleInputEmail1">Ciudad *</label>
+                    <span *ngIf="ciudad.touched && !ciudad.valid" class="label label-danger">La ciudad es requerida</span>
+                    <input class="form-control" type="text" name="ciudad" #ciudad="ngModel" [(ngModel)]="datosGeneral.ciudad" placeholder="Ciudad" required>
                 </div>
                 <div class="form-group">
-                        <label for="exampleInputEmail1">País</label>
-                        <input class="form-control" type="text" placeholder="País">
+                        <label for="exampleInputEmail1">País *</label>
+                        <span *ngIf="pais.touched && !pais.valid" class="label label-danger">El país ciudad es requerido</span>
+                        <input class="form-control" type="text" name="pais" #pais="ngModel" [(ngModel)]="datosGeneral.pais"  placeholder="País" required>
                   </div>
                   <div class="form-group">
-                      <label for="exampleInputEmail1">Contácto de Finanzas</label>
-                      <input class="form-control" type="text" placeholder="Contácto de Finanzas">
+                      <label for="exampleInputEmail1">Contácto de Finanzas *</label>
+                      <span *ngIf="confinanzas.touched && !confinanzas.valid" class="label label-danger">El contácto de finanzas es requerido</span>
+                      <input class="form-control" type="text"  name="confinanzas" #confinanzas="ngModel" [(ngModel)]="datosGeneral.confinanzas"  placeholder="Contácto de Finanzas" required>
                   </div>
                   <div class="form-group">
-                      <label for="exampleInputEmail1">Teléfono Contácto de Finanzas</label>
-                      <input class="form-control" type="text" placeholder="Teléfono Contácto de Finanzas">
+                      <label for="exampleInputEmail1">Teléfono Contácto de Finanzas *</label>
+                      <span *ngIf="tlffinanzas.touched && !tlffinanzas.valid" class="label label-danger">El teléfono de contácto de finanzas es requerido</span>
+                      <input class="form-control" type="text" name="tlffinanzas" #tlffinanzas="ngModel" [(ngModel)]="datosGeneral.tlffinanzas" placeholder="Teléfono Contácto de Finanzas" required>
                   </div>
                   <div class="form-group">
-                      <label for="exampleInputEmail1">Correo Contácto de Finanzas</label>
-                      <input class="form-control" type="text" placeholder="Correo Contácto de Finanzas">
+                      <label for="exampleInputEmail1">Correo Contácto de Finanzas *</label>
+                      <span *ngIf="correofinan.touched && !correofinan.valid" class="label label-danger">El correo de contácto de finanzas es requerido</span>
+                      <input class="form-control" type="text" name="correofinan" #correofinan="ngModel" [(ngModel)]="datosGeneral.correofinan"  placeholder="Correo Contácto de Finanzas" required>
                   </div>
                   <div class="form-group">
-                      <label for="exampleInputEmail1">Medios de la empresa</label>
-                      <textarea class="form-control" rows="3" placeholder="Medios de la empresa"></textarea>
+                      <label for="exampleInputEmail1">Medios de la empresa *</label>
+                      <span *ngIf="medios.touched && !medios.valid" class="label label-danger">El medio es requerido</span>
+                      <textarea class="form-control" rows="3" name="medios" #medios="ngModel" [(ngModel)]="datosGeneral.medios" placeholder="Medios de la empresa" required></textarea>
                   </div>
               
               </div>

@@ -11,8 +11,10 @@ import { Router } from '@angular/router';
 })
 export class GeneralComponent implements OnInit {
 public datosGeneral:Datosgeneral;
+public mensaje:string='';
+public show:boolean=false;
   constructor(private api:ApiService,private _login:LoginService,private router:Router) { 
-    this.datosGeneral = new Datosgeneral("","","","");
+    this.datosGeneral = new Datosgeneral("","","","","","","","","","","","","","","","");
   }
 
   getDatos(){
@@ -22,6 +24,18 @@ public datosGeneral:Datosgeneral;
       this.datosGeneral.correo=res['data'].map(res => res.correo);
       this.datosGeneral.nombres=res['data'].map(res => res.nombres);
       this.datosGeneral.telefono=res['data'].map(res => res.telefono);
+      this.datosGeneral.sociedad=res['data'].map(res => res.sociedad);
+      this.datosGeneral.paginas=res['data'].map(res => res.paginas);
+      this.datosGeneral.rut=res['data'].map(res => res.rut);
+      this.datosGeneral.domicilio=res['data'].map(res => res.domicilio);
+      this.datosGeneral.calle=res['data'].map(res => res.calle);
+      this.datosGeneral.numero=res['data'].map(res => res.numero);
+      this.datosGeneral.ciudad=res['data'].map(res => res.ciudad);
+      this.datosGeneral.pais=res['data'].map(res => res.pais);
+      this.datosGeneral.confinanzas=res['data'].map(res => res.confinanzas);
+      this.datosGeneral.tlffinanzas=res['data'].map(res => res.tlffinanzas);
+      this.datosGeneral.correofinan=res['data'].map(res => res.correofinan);
+      this.datosGeneral.medios=res['data'].map(res => res.medios);
     },err=>{console.log(err)})
   }
 
@@ -34,12 +48,15 @@ public datosGeneral:Datosgeneral;
 
   }
   onSubmit(){
-    console.log("datos",this.datosGeneral);
+
+    console.log(this.datosGeneral)
     this.datosGeneral.empresa=localStorage.getItem("currentEmpresa")
     this.api.GuardarDatosGeneral(this.datosGeneral).subscribe(
       data=>{
-        console.log(data);
-      },
+        this.show=true;
+        this.mensaje=data['messaje'];
+        console.log(this.show)
+        },
       erro=>{console.log(erro)}
   
       );

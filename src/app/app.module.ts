@@ -13,7 +13,7 @@ import {MatSelectModule} from '@angular/material/select';
 import { adminLteConf } from './admin-lte.conf';
 import { AppRoutingModule } from './app-routing.module';
 import { CoreModule } from './core/core.module';
-import { LayoutModule } from 'angular-admin-lte';
+import { LayoutModule, AlertModule } from 'angular-admin-lte';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { LoadingPageModule, MaterialBarModule } from 'angular-loading-page';
@@ -27,6 +27,9 @@ import { MatSortModule } from '@angular/material/sort';
 import { PagoComponent } from './pago/pago.component';
 import { GeneralComponent } from './general/general.component';
 import { PaginatorEspañol } from './modelos/paginator-espanol';
+import { AlertModule as MkAlertModule } from 'angular-admin-lte';
+import { AlertComponent } from 'library/angular-admin-lte/src/lib/alert/alert.component';
+
 
 
 
@@ -45,8 +48,9 @@ import { PaginatorEspañol } from './modelos/paginator-espanol';
     MatTableModule,
     MatPaginatorModule,
     MatSortModule,
-    MatInputModule
-  
+    MatInputModule,
+    MkAlertModule,AlertModule
+ 
   ],
   providers:[{ provide: MatPaginatorIntl, useClass: PaginatorEspañol}]
   ,
@@ -56,6 +60,7 @@ import { PaginatorEspañol } from './modelos/paginator-espanol';
     PagoComponent,
     HomeComponent,
     GeneralComponent,
+    
     
       ],
   bootstrap: [AppComponent]
