@@ -8,6 +8,7 @@ import { Global } from './global';
 import { map } from 'rxjs/operators';
 import { Impresiones } from './modelos/impresiones';
 import { Datosgeneral } from './modelos/datosgeneral';
+import { Databanco } from './modelos/databanco';
 
 
 @Injectable({
@@ -42,11 +43,26 @@ getDatos(empresa:string) {
   ).pipe(map(result => result));
 }
 
+public GuardarDataBanco(datos:Databanco):Observable<any> {
+  let headers = new HttpHeaders().set('Content-Type','application/x-www-form-urlencoded');
+  let json = JSON.stringify(datos);
+   return this._http.post(Global.BASE_API_URL+'api.php/banco',
+    {json:json},{ headers: headers });
+  }
+
 public GuardarDatosGeneral(datos:Datosgeneral):Observable<any> {
 let headers = new HttpHeaders().set('Content-Type','application/x-www-form-urlencoded');
 let json = JSON.stringify(datos);
  return this._http.post(Global.BASE_API_URL+'api.php/general',
   {json:json},{ headers: headers });
+}
+
+getDatosBanco(empresa:string) {
+  return this._http.post(Global.BASE_API_URL+'api.php/bancosget',
+  {
+    empresa:empresa
+  },{ headers: this.headers }
+  ).pipe(map(result => result));
 }
 
 getDatosGeneral(empresa:string) {
