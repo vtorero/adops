@@ -9,7 +9,7 @@
     <div class="login-box-body">
       <!--<p class="login-box-msg">Ingresar para iniciar sesión</p>-->
 
-      <form #formData="ngForm" (ngSubmit)="loginUser($formData)">
+      <form #formData="ngForm" (ngSubmit)="loginUser()">
         <div class="form-group has-feedback">
           <div *ngIf="error_user"> Error de acceso</div>
           <input type="text" name="usuario" #usuario.usuario="ngModel" [(ngModel)]="usuario.usuario"  class="form-control" placeholder="Usuario">
