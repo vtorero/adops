@@ -50,8 +50,8 @@
     <li mk-dropdown type="list" [isWrapper]="false" class="user user-menu">
       <mk-dropdown-toggle>
         <a #toggleElement>
-          <img src="assets/img/{{imagen}}" class="user-image" alt="User Image">
-          <span class="hidden-xs">{{usuario}}</span>
+          <img *ngIf="imagen" src="assets/img/{{imagen}}" class="user-image" alt="User Image">
+          <span   vclass="hidden-xs">{{usuario}}</span>
         </a>
       </mk-dropdown-toggle>
       <mk-dropdown-menu>
@@ -60,7 +60,7 @@
 
           <p>
             {{usuario}}
-            <small>Miembro desde Oct. 2019</small>
+            <!--<small>Miembro desde Oct. 2019</small>-->
           </p>
         </li>
         <li class="user-body">

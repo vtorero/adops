@@ -93,8 +93,7 @@ data:string= localStorage.getItem("data");
 }
 
 renderDataTable() {  
-  
-  let emp=localStorage.getItem("currentEmpresa");
+  let emp=sessionStorage.getItem("hashsession");
   this.api.getTablaInicial(emp).subscribe(x => {  
   this.dataSource = new MatTableDataSource();
   this.dataSource.data = x; 
@@ -127,8 +126,8 @@ error => {
       }
 
     this.cargando=true;
-    let emp=localStorage.getItem("currentEmpresa")
-    this.api.getDatos(emp)
+       let hash= sessionStorage.getItem("hashsession");
+    this.api.getDatos(hash)
         .subscribe(res => {
           console.log(res);
          
@@ -302,7 +301,7 @@ error => {
 enviaFechas(){
 this.labels=[];
 this.values=[];
-var empresa = localStorage.getItem("currentEmpresa");
+var empresa = sessionStorage.getItem("hashsession");
 var fec1 = this.selectedMoment.toDateString().split(" ",4); 
 var fec2 = this.selectedMoment2.toDateString().split(" ",4); 
 let ini=fec1[1]+fec1[2]+fec1[3];

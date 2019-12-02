@@ -19,6 +19,7 @@ public show:boolean=false;
 
   getDatos(){
     let emp = localStorage.getItem("currentEmpresa");
+    let hash = sessionStorage.getItem("hash");
     this.api.getDatosGeneral(emp).subscribe(res=>{
       console.log(res['data']);
       this.datosGeneral.correo=res['data'].map(res => res.correo);
