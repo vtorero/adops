@@ -51,9 +51,9 @@
                       <input class="form-control" type="text" name="aba" #aba="ngModel" [(ngModel)]="dataBanco.aba"  placeholder="ABA o Ruting" required>
                   </div>
                   <div class="form-group">
-                          <label for="exampleInputEmail1">Codigo Swift / Bank Swift Code * </label>
+                          <label for="exampleInputEmail1">Código Swift / Bank Swift Code * </label>
                           <span *ngIf="swift.touched && !swift.valid" class="label label-danger">Codigo Swift es requerido</span>
-                          <input class="form-control" type="text" name="swift" #swift="ngModel" [(ngModel)]="dataBanco.swift"  placeholder="Codigo Swift / Bank Swift Code" required>
+                          <input class="form-control" type="text" name="swift" #swift="ngModel" [(ngModel)]="dataBanco.swift"  placeholder="Código Swift / Bank Swift Code" required>
                     </div>
                     <div class="form-group">
                         <label for="exampleInputEmail1">Nombre contacto en el banco * </label>
@@ -76,7 +76,7 @@
                     <div class="form-check">
                         <label class="form-check-label" for="exampleCheck1">Condición de pago / Agreed payment terms:45 días<br> 
                             Moneda de Transacciones / Currency : US Dollar<br>
-                            Las facturas deberan llegar por e-mail a la siguiente dirección/
+                            Las facturas deberán llegar por e-mail a la siguiente dirección/
                              All invoices should be sent to the following e-mail addresses: facturacion@adops.pe</label>
                              <span *ngIf="condicion.touched && !condicion.valid" class="label label-danger">Aceptar las condiciones</span>
                              <input type="checkbox" class="form-check-input" id="exampleCheck1"  name="condicion" #condicion="ngModel" [(ngModel)]="dataBanco.condicion"  value="1" required>
