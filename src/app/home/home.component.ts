@@ -68,9 +68,9 @@ data:string= localStorage.getItem("data");
   columnad_exchange_estimated_revenue: number;
   columnad_exchange_impressions: number;
   dimensionad_exchange_creative_sizes: string;
-  dimensionad_exchange_date: string;
+  dimensiondate: string;
   dimensionad_exchange_device_category:string;
-  displayedColumns = ['dimensionad_exchange_date','columnad_exchange_estimated_revenue','columnad_exchange_impressions','columnad_exchange_ad_ecpm'];
+  displayedColumns = ['dimensiondate','columnad_exchange_estimated_revenue','columnad_exchange_impressions','columnad_exchange_ad_ecpm'];
   dataSource: any;
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -136,9 +136,10 @@ error => {
       this.final=res['final'];
       this.ingreso_total= res['ingreso'].map(res => res.ingreso_total);
       this.impresiones= res['ingreso'].map(res => res.impresiones);
+      
       let alldates = res['data'].map(res => res.total)
       let  alllabels = res['data'].map(res => res.dimensionad_exchange_device_category)
-      let dias_val = res['diario_desktop'].map(res=>res.dimensionad_exchange_date)
+      let dias_val = res['diario_desktop'].map(res=>res.dimensiondate)
       let dias_valdesc =res['diario_desktop'].map(res=>res.total)
       let dias_valmovil =res['diario_movil'].map(res=>res.total)
       let dias_valtablet =res['diario_tablet'].map(res=>res.total)
@@ -341,7 +342,7 @@ loadDatos(inicio:string,final:string,empresa:string){
         let alldates = res['data'].map(res => res.total)
         let  alllabels = res['data'].map(res => res.dimensionad_exchange_device_category)
 
-        let dias = res['diario_desktop'].map(res=>res.dimensionad_exchange_date)
+        let dias = res['diario_desktop'].map(res=>res.dimensiondate)
         let dias_valdesck =res['diario_desktop'].map(res=>res.total)
         
         let creative_sizes = res['creatives'].map(res=>res.dimensionad_exchange_creative_sizes);
