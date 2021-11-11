@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import 'rxjs/add/operator/map';
 import {Observable} from 'rxjs/Observable';
-import { Chart } from 'chart.js';  
+import { Chart } from 'chart.js';
 import 'rxjs/add/operator/map';
 import { Global } from './global';
 import { map } from 'rxjs/operators';
@@ -18,7 +18,7 @@ export class ApiService {
   public url:string;
   constructor(public _http: HttpClient,) {
     this.url="http://slim.com/api.php/productos";
-    
+
    }
    headers: HttpHeaders = new HttpHeaders({ "Content-type":"application/json" });
    getProductos(): Observable<any>{
@@ -74,9 +74,10 @@ getDatosGeneral(empresa:string) {
 }
 
 
-public getTablaInicial(empresa:string):Observable<Impresiones[]> {
+public getTablaInicial(empresa:string,tabla:string):Observable<Impresiones[]> {
   return this._http.post<Impresiones[]>(Global.BASE_API_URL+'api.php/tabla',{
-    emp:empresa
+    emp:empresa,
+    tabla:tabla,
 },{ headers: this.headers }).pipe(map(result => result));
 }
 
@@ -118,21 +119,21 @@ getPie(labels:any,datos:any,canvas:string,titulo:string){
           data: datos,
           //borderColor: '#3cba9f',
           //fill: true,
-          backgroundColor: [  
-            "#0f498aff",  
-            "#999999ff",  
-            "#2196f3ff",  
-            "#ccccccff",  
-            "#bbdefbff",  
-            "#f990a7",  
-            "#aad2ed",  
-            "#FF00FF",  
-            "Blue",  
-            "Red",  
-            "Blue"  
+          backgroundColor: [
+            "#0f498aff",
+            "#999999ff",
+            "#2196f3ff",
+            "#ccccccff",
+            "#bbdefbff",
+            "#f990a7",
+            "#aad2ed",
+            "#FF00FF",
+            "Blue",
+            "Red",
+            "Blue"
           ]
         }
-      
+
       ],
 
     },
@@ -162,15 +163,15 @@ getPie(labels:any,datos:any,canvas:string,titulo:string){
           mode: 'nearest',
           intersect: true
       },
-        
+
         scales: {
           xAxes: [],
           yAxes: []
-        }          
-    }  
+        }
+    }
   }
   )
 
 }
-  
+
 }

@@ -26,7 +26,7 @@ constructor(private router:Router,private login:LoginService) {
 
  loginUser(){
     event.preventDefault();
-    
+
     if(this.usuario.usuario){
           this.login.loginUser(this.usuario.usuario,this.usuario.password).subscribe(data=>{
             if(data['rows']==1) {
@@ -34,12 +34,16 @@ constructor(private router:Router,private login:LoginService) {
               localStorage.removeItem("currentUser");
               localStorage.removeItem("currentNombre");
               localStorage.removeItem("currentAvatar");
-              localStorage.removeItem("currentEmpresa"); 
-              sessionStorage.removeItem("hashsession"); 
+              localStorage.removeItem("currentEmpresa");
+              localStorage.removeItem("currentTable");
+              localStorage.removeItem("tipoQuery");
+              sessionStorage.removeItem("hashsession");
               localStorage.setItem("currentUser",data['data'][0]['usuario']);
               localStorage.setItem("currentNombre",data['data'][0]['nombre']);
               localStorage.setItem("currentAvatar",data['data'][0]['imagen']);
               localStorage.setItem("currentEmpresa",data['data'][0]['empresa']);
+              localStorage.setItem("currentTable",data['data'][0]['data']);
+              localStorage.setItem("tipoQuery",data['data'][0]['tipo']);
               sessionStorage.setItem("hashsession",data['data'][0]['hash']);
               this.router.navigate(['dash']);
 
@@ -47,7 +51,7 @@ constructor(private router:Router,private login:LoginService) {
               this.error_user = true;
               console.log(this.error_user)
             }
-            
+
           });
     }
 //this.router.navigate(['dash']);

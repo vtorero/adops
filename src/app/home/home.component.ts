@@ -1,5 +1,5 @@
 import { Component, NgModule, ViewChild} from '@angular/core';
-import { Chart } from 'chart.js';  
+import { Chart } from 'chart.js';
 import {ApiService} from '../api.service';
 import * as Prism from 'prismjs';
 import {LoginService} from '../services/login.service';
@@ -29,7 +29,7 @@ export const MY_MOMENT_FORMATS = {
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css'],
- 
+
 })
 
 @NgModule({
@@ -42,7 +42,7 @@ export class HomeComponent{
 public selectedMoment = new Date();
 public selectedMoment2 = new Date();
 datos:Datos;
-pie = [];  
+pie = [];
 piechar =[];
 barchar =[];
 labels=[];
@@ -75,50 +75,51 @@ data:string= localStorage.getItem("data");
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  fec1= this.selectedMoment.toDateString().split(" ",4); 
-  fec2 = this.selectedMoment2.toDateString().split(" ",4); 
+  fec1= this.selectedMoment.toDateString().split(" ",4);
+  fec2 = this.selectedMoment2.toDateString().split(" ",4);
   fecha1:string=this.fec1[2]+'-'+this.fec1[1]+'-'+this.fec1[3];
   fecha2:string=this.fec2[2]+'-'+this.fec2[1]+'-'+this.fec2[3];
 
- 
-  
+
+
   constructor(private api:ApiService,private _login:LoginService,private router:Router,dateTimeAdapter: DateTimeAdapter<any>){
     dateTimeAdapter.setLocale('es-PE');
   }
 
   applyFilter(filterValue: string) {
-    filterValue = filterValue.trim(); 
-    filterValue = filterValue.toLowerCase(); 
+    filterValue = filterValue.trim();
+    filterValue = filterValue.toLowerCase();
     this.dataSource.filter = filterValue;
 }
 
-renderDataTable() {  
+renderDataTable() {
   let emp=sessionStorage.getItem("hashsession");
-  this.api.getTablaInicial(emp).subscribe(x => {  
+  let table=localStorage.getItem("currentTable");
+   this.api.getTablaInicial(emp,table).subscribe(x => {
   this.dataSource = new MatTableDataSource();
-  this.dataSource.data = x; 
-  this.dataSource.sort = this.sort;
-  this.dataSource.paginator = this.paginator;  
-},  
-error => {  
-  console.log('Error de conexion de datatable!' + error);  
-});  
-} 
-
-renderDataTableConsulta(inicio:string,final:string,emp:string) { 
-  this.dataSource=[];
-  this.api.getTablaConsultar(inicio,final,emp).subscribe( x => {  
-  this.dataSource = new MatTableDataSource();  
-  this.dataSource.data = x; 
+  this.dataSource.data = x;
   this.dataSource.sort = this.sort;
   this.dataSource.paginator = this.paginator;
-  
-},  
-error => {  
-  console.log('Error de conexion de datatable!!' + error);  
-});  
-} 
-  
+},
+error => {
+  console.log('Error de conexion de datatable!' + error);
+});
+}
+
+renderDataTableConsulta(inicio:string,final:string,emp:string) {
+  this.dataSource=[];
+  this.api.getTablaConsultar(inicio,final,emp).subscribe( x => {
+  this.dataSource = new MatTableDataSource();
+  this.dataSource.data = x;
+  this.dataSource.sort = this.sort;
+  this.dataSource.paginator = this.paginator;
+
+},
+error => {
+  console.log('Error de conexion de datatable!!' + error);
+});
+}
+
   ngOnInit() {
     this.renderDataTable();
     if(this._login.getCurrentUser==false){
@@ -130,13 +131,13 @@ error => {
     this.api.getDatos(hash)
         .subscribe(res => {
           console.log(res);
-         
+
       this.ingreso_cpm= res['ingreso'].map(res => res.ingreso_cpm);
       this.inicio=res['inicio'];
       this.final=res['final'];
       this.ingreso_total= res['ingreso'].map(res => res.ingreso_total);
       this.impresiones= res['ingreso'].map(res => res.impresiones);
-      
+
       let alldates = res['data'].map(res => res.total)
       let  alllabels = res['data'].map(res => res.dimensionad_exchange_device_category)
       let dias_val = res['diario_desktop'].map(res=>res.dimensiondate)
@@ -145,7 +146,7 @@ error => {
       let dias_valtablet =res['diario_tablet'].map(res=>res.total)
       let creative_sizes = res['creatives'].map(res=>res.dimensionad_exchange_creative_sizes);
       let creative_total = res['creatives'].map(res=>res.total);
-  
+
       alllabels.forEach((res)=>{this.labels.push(res)});
       alldates.forEach((res) =>{this.values.push(res)});
 
@@ -156,13 +157,13 @@ error => {
 
       creative_sizes.forEach((res)=>{this.creat_dias.push(res)})
       creative_total.forEach((res)=>{this.creat_total.push(res)})
-      
+
 
       this.api.getPie(this.creat_dias,this.creat_total,'canvas4','Ingresos por tamaño de creatividad');
       this.api.getPie(this.labels,this.values,'canvas','Ingresos por dispositivo');
 
- 
-  
+
+
        this.barchar = new Chart('canvas2', {
         type: 'line',
         data: {
@@ -237,7 +238,7 @@ error => {
               spanGaps: false,
             }*/
           ],
-       
+
         },
         options: {
           legend: {
@@ -265,17 +266,17 @@ error => {
               {
               gridLines: {
                   display:false
-              } , 
+              } ,
                 scaleLabel: {
                      display: true,
                      labelString: 'Ingresos (USD)',
-                     fontSize: 14 
+                     fontSize: 14
                   }
             }],
-                        
-        }  
+
+        }
       },
-      
+
           plugins: {
             datalabels: {
               anchor: 'end',
@@ -288,10 +289,10 @@ error => {
           }
       })
 
-      
+
 
     })
-  
+
     this.cargando=false;
   }
 
@@ -303,8 +304,8 @@ enviaFechas(){
 this.labels=[];
 this.values=[];
 var empresa = sessionStorage.getItem("hashsession");
-var fec1 = this.selectedMoment.toDateString().split(" ",4); 
-var fec2 = this.selectedMoment2.toDateString().split(" ",4); 
+var fec1 = this.selectedMoment.toDateString().split(" ",4);
+var fec2 = this.selectedMoment2.toDateString().split(" ",4);
 let ini=fec1[1]+fec1[2]+fec1[3];
 let fin=fec2[1]+fec2[2]+fec2[3];
 
@@ -316,7 +317,7 @@ this.renderDataTableConsulta(ini,fin,empresa);
 
   }
 
-  /*carga datos click*/ 
+  /*carga datos click*/
 
 loadDatos(inicio:string,final:string,empresa:string){
 
@@ -333,7 +334,7 @@ loadDatos(inicio:string,final:string,empresa:string){
 
       this.api.getReportes(inicio,final,empresa)
       .subscribe(res => {
-    
+
         this.inicio=res['inicio'];
         this.final=res['final'];
         this.ingreso_cpm= res['ingreso'].map(res => res.ingreso_cpm);
@@ -344,27 +345,27 @@ loadDatos(inicio:string,final:string,empresa:string){
 
         let dias = res['diario_desktop'].map(res=>res.dimensiondate)
         let dias_valdesck =res['diario_desktop'].map(res=>res.total)
-        
+
         let creative_sizes = res['creatives'].map(res=>res.dimensionad_exchange_creative_sizes);
         let creative_total = res['creatives'].map(res=>res.total);
-    
+
         creative_sizes.forEach((res)=>{this.creat_dias.push(res)})
         creative_total.forEach((res)=>{this.creat_total.push(res)})
 
         alllabels.forEach((res)=>{this.labels.push(res)});
         alldates.forEach((res) =>{this.values.push(res)});
-  
+
         dias.forEach((res)=>{this.labeldias.push(res)})
         dias_valdesck.forEach((res)=>{this.dias_value_desk.push(res)})
-        
-  
+
+
   if(this.window != undefined)
   this.window.destroy();
   this.window = new Chart(this.piechar, {});
 
   this.api.getPie(this.creat_dias,this.creat_total,'canvas4','Ingreso por tamaño de creatividad');
   this.api.getPie(this.labels,this.values,'canvas','Ingresos por dispositivo');
-  
+
 
   this.barchar = new Chart('canvas2', {
     type: 'line',
@@ -441,7 +442,7 @@ loadDatos(inicio:string,final:string,empresa:string){
           spanGaps: false,
         }*/
       ],
-   
+
     },
     options: {
       legend: {
@@ -469,17 +470,17 @@ loadDatos(inicio:string,final:string,empresa:string){
           {
           gridLines: {
               display:false
-          } , 
+          } ,
             scaleLabel: {
                  display: true,
                  labelString: 'Ingresos (USD)',
-                 fontSize: 14 
+                 fontSize: 14
               }
         }],
-                    
-    }  
+
+    }
   },
-  
+
       plugins: {
         datalabels: {
           anchor: 'end',
