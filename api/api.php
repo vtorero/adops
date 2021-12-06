@@ -7,12 +7,18 @@ $method = $_SERVER['REQUEST_METHOD'];
 if($method == "OPTIONS") {
     die();
 }
+
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 require_once 'vendor/autoload.php';
 
 $app = new Slim\Slim();
+//$db = new mysqli("localhost","root","root","adops");
 $db = new mysqli("localhost","marife","libido16","adops");
 
-//mysqli_set_charset($db, 'utf8');
+mysqli_set_charset($db, 'utf8');
 if (mysqli_connect_errno()) {
     printf("Conexión fallida: %s\n", mysqli_connect_error());
     exit();
@@ -74,6 +80,12 @@ and dimensiondate between '".$ini."' and '".$fin."' GROUP BY 1 order by 1 desc";
 
 }
 
+if($tipo=='crp'){
+
+    $sql_txt="SELECT dimensionad_exchange_date dimensiondate,FORMAT(sum(columnad_exchange_estimated_revenue*".$cpm.")/(sum(columnad_exchange_impressions))*1000,2) columnad_exchange_ad_ecpm,FORMAT(SUM(columnad_exchange_impressions),0) columnad_exchange_impressions,FORMAT(SUM(columnad_exchange_estimated_revenue*".$tasa."),2) columnad_exchange_estimated_revenue FROM adops.".$tabla."
+    where dimensionad_exchange_date between '".$ini."' and '".$fin."' GROUP BY 1 order by 1 desc";
+
+}
 
 
       $resultado_diario = $db->query($sql_txt);
@@ -133,13 +145,18 @@ FORMAT(SUM(columnad_exchange_impressions),0) columnad_exchange_impressions,FORMA
 where  dimensiondate between '".$ini."' and '".$fin."' GROUP BY 1 order by 1 desc";
 }else{
 
-    $sql="SELECT dimensiondate,FORMAT(sum(columnad_exchange_estimated_revenue*".$cpm.")/(sum(columnad_exchange_impressions))*1000,2) columnad_exchange_ad_ecpm,
+$sql="SELECT dimensiondate,FORMAT(sum(columnad_exchange_estimated_revenue*".$cpm.")/(sum(columnad_exchange_impressions))*1000,2) columnad_exchange_ad_ecpm,
 FORMAT(SUM(columnad_exchange_impressions),0) columnad_exchange_impressions,FORMAT(SUM(columnad_exchange_matched_requests),0) columnad_exchange_matched_requests,FORMAT(SUM(columnad_exchange_estimated_revenue*".$tasa."),2) columnad_exchange_estimated_revenue FROM adops.".$tabla."
 where dimensionad_exchange_network_partner_name='".$emp."'
 and dimensiondate between '".$ini."' and '".$fin."' GROUP BY 1 order by 1 desc";
 
-
 }
+if($tipo=='crp'){
+    $sql="SELECT dimensionad_exchange_date dimensiondate,FORMAT(sum(columnad_exchange_estimated_revenue*".$cpm.")/(sum(columnad_exchange_impressions))*1000,2) columnad_exchange_ad_ecpm,
+FORMAT(SUM(columnad_exchange_impressions),0) columnad_exchange_impressions,FORMAT(SUM(columnad_exchange_matched_requests),0) columnad_exchange_matched_requests,FORMAT(SUM(columnad_exchange_estimated_revenue*".$tasa."),2) columnad_exchange_estimated_revenue FROM adops.".$tabla."
+where  dimensionad_exchange_date between '".$ini."' and '".$fin."' GROUP BY 1 order by 1 desc";
+}
+
 
 
 
@@ -503,8 +520,15 @@ if($tipo=='uno'){
 
 }else{
 
-    $sql="SELECT FORMAT(sum(columnad_exchange_estimated_revenue*".$cpm.")/(sum(columnad_exchange_impressions))*1000,2) ingreso_cpm,FORMAT(ROUND(sum(columnad_exchange_estimated_revenue)*".$tasa.",2),2) ingreso_total ,FORMAT(sum(columnad_exchange_impressions),0) impresiones FROM adops.11223363888   where dimensionad_exchange_network_partner_name='".$emp."' and dimensiondate between '".$ini."' and '".$fin."'";
+    $sql="SELECT FORMAT(sum(columnad_exchange_estimated_revenue*".$cpm.")/(sum(columnad_exchange_impressions))*1000,2) ingreso_cpm,FORMAT(ROUND(sum(columnad_exchange_estimated_revenue)*".$tasa.",2),2) ingreso_total ,FORMAT(sum(columnad_exchange_impressions),0) impresiones FROM adops.".$tabla."   where dimensionad_exchange_network_partner_name='".$emp."' and dimensiondate between '".$ini."' and '".$fin."'";
 }
+
+if($tipo=='crp'){
+
+    $sql="SELECT FORMAT(sum(columnad_exchange_estimated_revenue*".$cpm.")/(sum(columnad_exchange_impressions))*1000,2) ingreso_cpm,FORMAT(ROUND(sum(columnad_exchange_estimated_revenue)*".$tasa.",2),2) ingreso_total ,FORMAT(sum(columnad_exchange_impressions),0) impresiones FROM adops.".$tabla."   where dimensionad_exchange_date between '".$ini."' and '".$fin."'";
+
+}
+
 
 
 $ingreso=$db->query($sql);
@@ -525,6 +549,14 @@ $ingreso=$db->query($sql);
             where  dimensionad_exchange_network_partner_name='".$emp."' and
             dimensiondate between '".$ini."' and '".$fin."' group by 1 order by 1 asc";
         }
+
+        if($tipo=='crp'){
+
+            $sql="SELECT concat(SUBSTRING(dimensionad_exchange_date,6,2),'/',SUBSTRING(dimensionad_exchange_date,9,2)) dimensiondate,FORMAT(sum(columnad_exchange_estimated_revenue)*".$tasa.",2) as total FROM adops.".$tabla."
+            where  dimensionad_exchange_date between '".$ini."' and '".$fin."' group by 1 order by 1 asc";
+
+        }
+
 
 
 
@@ -548,6 +580,14 @@ $ingreso=$db->query($sql);
 
         }
 
+        if($tipo=='crp'){
+
+            $sql="SELECT dimensionad_exchange_date dimensiondate,round(sum(columnad_exchange_estimated_revenue),2)*".$tasa." as total FROM adops.".$tabla."
+            where  dimensionad_exchange_date between '".$ini."' and '".$fin."' and round(columnad_exchange_estimated_revenue,2)>0.00 and dimensionad_exchange_device_category='Tablets' group by 1 order by 1 asc";
+
+        }
+
+
 
           $resultado_table = $db->query($sql);
     $infotablet=array();
@@ -570,6 +610,14 @@ $ingreso=$db->query($sql);
 
         }
 
+        if($tipo=='crp'){
+
+            $sql="SELECT dimensionad_exchange_date dimensiondate,round(sum(columnad_exchange_estimated_revenue),2)*".$tasa." as total FROM adops.".$tabla."
+            where  dimensionad_exchange_date between '".$ini."' and '".$fin."' and round(columnad_exchange_estimated_revenue,2)>0.00 and dimensionad_exchange_device_category='High-end mobile devices' group by 1 order by 1 asc";
+
+
+
+        }
 
           $resultado_mobil = $db->query($sql);
     $infomovil=array();
@@ -587,6 +635,11 @@ $ingreso=$db->query($sql);
             $sql="SELECT REPLACE(dimensionad_exchange_device_category,'High-end mobile devices','Mobile') dimensionad_exchange_device_category,round(sum(columnad_exchange_estimated_revenue),2)*".$tasa." as total FROM adops.".$tabla."
             where  dimensionad_exchange_network_partner_name='".$emp."'  and
             dimensiondate between '".$ini."' and '".$fin."' and round(columnad_exchange_estimated_revenue,2)>0.00 group by 1 order by 2 desc";
+        }
+
+        if($tipo=='crp'){
+            $sql="SELECT REPLACE(dimensionad_exchange_device_category,'High-end mobile devices','Mobile') dimensionad_exchange_device_category,round(sum(columnad_exchange_estimated_revenue),2)*".$tasa." as total FROM adops.".$tabla."
+            where  dimensionad_exchange_date between '".$ini."' and '".$fin."' and round(columnad_exchange_estimated_revenue,2)>0.00 group by 1 order by 2 desc";
         }
 
     $resultado = $db->query($sql);
@@ -609,6 +662,13 @@ $ingreso=$db->query($sql);
             dimensiondate between '".$ini."' and '".$fin."' and round(columnad_exchange_estimated_revenue,2)>0.00 group by 1 order by 2 desc limit 5";
 
         }
+
+        if($tipo=='crp'){
+            $sql="SELECT SUBSTRING(dimensionad_exchange_dfp_ad_unit,16,20) as dimensionad_exchange_creative_sizes,round(sum(columnad_exchange_estimated_revenue),2)*".$tasa." as total FROM adops.".$tabla."
+            where  dimensionad_exchange_date between '".$ini."' and '".$fin."' and round(columnad_exchange_estimated_revenue,2)>0.00 group by 1 order by 2 desc";
+        }
+
+
 
      $result_creative = $db->query($sql);
     $info_creative=array();
@@ -675,7 +735,7 @@ $app->post("/inicio",function() use($db,$app){
 
         $tasa=(float) $infocliente[0]["tasa"];
         $tabla=(float) $infocliente[0]["data"];
-        $tipo=(float) $infocliente[0]["tipo"];
+        $tipo=$infocliente[0]["tipo"];
         $emp=$infocliente[0]["empresa"];
         $cpm=(float) $infocliente[0]["cpm"];
 
@@ -689,6 +749,12 @@ if($tipo=='uno'){
     where dimensionad_exchange_network_partner_name='".$emp."' and
     dimensiondate between '".$ini."' and '".$fin."' and round(columnad_exchange_estimated_revenue,2)>0.00  order by 1 desc";
 }
+
+if($tipo=='crp'){
+    $query="SELECT dimensionad_exchange_date dimensiondate ,	SUBSTRING(dimensionad_exchange_dfp_ad_unit,16,20)  dimensionad_exchange_creative_sizes ,dimensionad_exchange_device_category  ,columnad_exchange_impressions ,columnad_exchange_estimated_revenue*".$tasa." columnad_exchange_estimated_revenue FROM adops.".$tabla."
+    where  dimensionad_exchange_date between '".$ini."' and '".$fin."' and round(columnad_exchange_estimated_revenue,2)>0.00  order by 1 desc";
+}
+
 
   $resultado_diario = $db->query($query);
     $infotabla=array();
@@ -706,6 +772,11 @@ $sql="SELECT dimensiondate,round(sum(columnad_exchange_estimated_revenue),2)*".$
 where dimensionad_exchange_network_partner_name='".$emp."' and
 dimensiondate between '".$ini."' and '".$fin."' and round(columnad_exchange_estimated_revenue,2)>0.00 group by 1 order by 1 asc";
 
+        }
+
+        if($tipo=='crp'){
+            $sql="SELECT dimensionad_exchange_date dimensiondate,round(sum(columnad_exchange_estimated_revenue),2)*".$tasa." as total FROM adops.".$tabla."
+            where  dimensionad_exchange_date between '".$ini."' and '".$fin."' and round(columnad_exchange_estimated_revenue,2)>0.00 group by 1 order by 1 asc";
         }
 
   $resultado_diario = $db->query($sql);
@@ -726,7 +797,11 @@ dimensiondate between '".$ini."' and '".$fin."' and round(columnad_exchange_esti
     dimensiondate between '".$ini."' and '".$fin."' group by 1 order by 1 asc";
         }
 
+        if($tipo=='crp'){
 
+            $sql="SELECT concat(SUBSTRING(dimensionad_exchange_date,6,2),'/',SUBSTRING(dimensionad_exchange_date,9,2)) dimensiondate,FORMAT(sum(columnad_exchange_estimated_revenue)*".$tasa.",2) as total FROM adops.".$tabla."
+            where  dimensionad_exchange_date between '".$ini."' and '".$fin."' group by 1 order by 1 asc";
+        }
               $resultado_desk = $db->query($sql);
     $infodesk=array();
         while ($filadesk= $resultado_desk->fetch_array()) {
@@ -747,10 +822,15 @@ dimensiondate between '".$ini."' and '".$fin."' and round(columnad_exchange_esti
             dimensiondate between '".$ini."' and '".$fin."' and round(columnad_exchange_estimated_revenue,2)>0.00 and dimensionad_exchange_device_category='Tablets' group by 1 order by 1 asc";
         }
 
-          $resultado_table = $db->query($sql);
-    $infotablet=array();
-        while ($filatab = $resultado_table->fetch_array()) {
+        if($tipo=='crp'){
+            $sql="SELECT dimensionad_exchange_date dimensiondate,round(sum(columnad_exchange_estimated_revenue),2)*".$tasa." as total FROM adops.".$tabla."
+            where dimensionad_exchange_date between '".$ini."' and '".$fin."' and round(columnad_exchange_estimated_revenue,2)>0.00 and dimensionad_exchange_device_category='Tablets' group by 1 order by 1 asc";
 
+        }
+
+      $resultado_table = $db->query($sql);
+    $infotablet=array();
+       while ($filatab = $resultado_table->fetch_array()) {
             $infotablet[]=$filatab;
         }
 
@@ -766,7 +846,12 @@ dimensiondate between '".$ini."' and '".$fin."' and round(columnad_exchange_esti
             dimensiondate between '".$ini."' and '".$fin."' and round(columnad_exchange_estimated_revenue,2)>0.00 and dimensionad_exchange_device_category='High-end mobile devices' group by 1 order by 1 asc";
 
         }
+        if($tipo=='crp'){
 
+            $sql="SELECT dimensionad_exchange_date dimensiondate,round(sum(columnad_exchange_estimated_revenue),2)*".$tasa." as total FROM adops.".$tabla."
+            where  dimensionad_exchange_date between '".$ini."' and '".$fin."' and round(columnad_exchange_estimated_revenue,2)>0.00 and dimensionad_exchange_device_category='High-end mobile devices' group by 1 order by 1 asc";
+
+        }
 
           $resultado_mobil = $db->query($sql);
     $infomovil=array();
@@ -787,6 +872,10 @@ dimensiondate between '".$ini."' and '".$fin."' and round(columnad_exchange_esti
     dimensiondate between '".$ini."' and '".$fin."' group by 1 order by 2 desc";
  }
 
+ if($tipo=='crp'){
+    $sql="SELECT REPLACE(dimensionad_exchange_device_category,'High-end mobile devices','Mobile') dimensionad_exchange_device_category,round(sum(columnad_exchange_estimated_revenue),2)*".$tasa." as total FROM adops.".$tabla."
+    where  dimensionad_exchange_date between '".$ini."' and '".$fin."' group by 1 order by 2 desc";
+ }
 
     $resultado = $db->query($sql);
     $info=array();
@@ -808,6 +897,11 @@ dimensiondate between '".$ini."' and '".$fin."' and round(columnad_exchange_esti
 
         }
 
+        if($tipo=='crp'){
+            $sql="SELECT SUBSTRING(dimensionad_exchange_dfp_ad_unit,16,20)  dimensionad_exchange_creative_sizes,round(sum(columnad_exchange_estimated_revenue),2)*".$tasa." as total FROM adops.".$tabla."
+            where  dimensionad_exchange_date between '".$ini."' and '".$fin."' and round(columnad_exchange_estimated_revenue,2)>0.00 group by 1 order by 2 desc";
+        }
+
 
     $result_creative = $db->query($sql);
     $info_creative=array();
@@ -821,6 +915,9 @@ if($tipo=='uno'){
 
 }else{
 $sql="SELECT FORMAT(sum(columnad_exchange_estimated_revenue*".$cpm.")/(sum(columnad_exchange_impressions))*1000,2) ingreso_cpm,FORMAT(ROUND(sum(columnad_exchange_estimated_revenue)*".$tasa.",2),2) ingreso_total,FORMAT(sum(columnad_exchange_impressions),0) impresiones  FROM adops.".$tabla."   where  dimensionad_exchange_network_partner_name='".$emp."' and dimensiondate between '".$ini."' and '".$fin."'";
+}
+if($tipo=='crp'){
+    $sql="SELECT FORMAT(sum(columnad_exchange_estimated_revenue*".$cpm.")/(sum(columnad_exchange_impressions))*1000,2) ingreso_cpm,FORMAT(ROUND(sum(columnad_exchange_estimated_revenue)*".$tasa.",2),2) ingreso_total,FORMAT(sum(columnad_exchange_impressions),0) impresiones  FROM adops.".$tabla."   where  dimensionad_exchange_date between '".$ini."' and '".$fin."'";
 }
 
        $ingreso=$db->query($sql);

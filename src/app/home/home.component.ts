@@ -158,10 +158,15 @@ error => {
       creative_sizes.forEach((res)=>{this.creat_dias.push(res)})
       creative_total.forEach((res)=>{this.creat_total.push(res)})
 
+      console.log("xsssse",localStorage.getItem("currentUser"));
 
       this.api.getPie(this.creat_dias,this.creat_total,'canvas4','Ingresos por tamaño de creatividad');
-      this.api.getPie(this.labels,this.values,'canvas','Ingresos por dispositivo');
+      if(localStorage.getItem("currentUser")=="crp"){
+        this.api.getPie(this.creat_dias,this.creat_total,'canvas4','Ingresos por sitio');
+        }
 
+
+      this.api.getPie(this.labels,this.values,'canvas','Ingresos por dispositivo');
 
 
        this.barchar = new Chart('canvas2', {
@@ -363,7 +368,14 @@ loadDatos(inicio:string,final:string,empresa:string){
   this.window.destroy();
   this.window = new Chart(this.piechar, {});
 
+
+
   this.api.getPie(this.creat_dias,this.creat_total,'canvas4','Ingreso por tamaño de creatividad');
+
+  if(localStorage.getItem("currentUser")=="crp"){
+    this.api.getPie(this.creat_dias,this.creat_total,'canvas4','Ingresos por sitio');
+  }
+
   this.api.getPie(this.labels,this.values,'canvas','Ingresos por dispositivo');
 
 

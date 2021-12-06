@@ -1,10 +1,3 @@
-Ecuavisa
-Editora Novolexis
-El Universo
-Finca Raiz
-Flashback
-Iprofesional
-KienyKe
-Latina.pe
-Vistazo
-Yapo CL
+codigo para publicar
+
+ng build --prod --aot --output-hashing=all
